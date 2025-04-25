@@ -1,0 +1,1656 @@
+Seg loader info
++0000  000000  DC.W       $0050               ; JT offset          | 0050
++0002  000002  DC.W       $0020               ; # of entries       | 0020
+Anon1
++0000  000004  MOVE.L     (A7)+,D0                                 | 201F
++0002  000006  LEA        Anon1+$0014,A0      ; 00000018           | 41FA 0010
++0006  00000A  SUB.W      A0,D0                                    | 9048
++0008  00000C  LSR.W      #$1,D0                                   | E248
++000A  00000E  MOVEA.L    (A7)+,A1                                 | 225F
++000C  000010  MOVE.W     D0,-(A7)                                 | 3F00
++000E  000012  MOVE.L     A1,-(A7)                                 | 2F09
++0010  000014  _Pack12    ,AutoPop            ; AC2E               | AC2E
++0012  000016  BSR.S      Anon1               ; 00000004           | 61EC
++0014  000018  BSR.S      Anon1               ; 00000004           | 61EA
++0016  00001A  BSR.S      Anon1               ; 00000004           | 61E8
++0018  00001C  BSR.S      Anon1               ; 00000004           | 61E6
++001A  00001E  BSR.S      Anon1               ; 00000004           | 61E4
++001C  000020  BSR.S      Anon1               ; 00000004           | 61E2
++001E  000022  BSR.S      Anon1               ; 00000004           | 61E0
++0020  000024  BSR.S      Anon1               ; 00000004           | 61DE
++0022  000026  BSR.S      Anon1               ; 00000004           | 61DC
++0024  000028  BSR.S      Anon1               ; 00000004           | 61DA
++0026  00002A  TST.W      ROM85                                    | 4A78 028E
++002A  00002E  BMI.S      Anon2               ; 00000052           | 6B22
++002C  000030  MOVE.W     #$0090,D0                                | 303C 0090
++0030  000034  _GetTrapAddress,Immed          ; A346               | A346
++0032  000036  MOVEA.L    A0,A1                                    | 2248
++0034  000038  MOVE.W     #$009F,D0                                | 303C 009F
++0038  00003C  _GetTrapAddress,Sys,Immed      ; A746               | A746
++003A  00003E  CMPA.L     A0,A1                                    | B3C8
++003C  000040  BEQ.S      Anon2               ; 00000052           | 6710
++003E  000042  MOVEA.L    (A7)+,A1                                 | 225F
++0040  000044  MOVEA.L    (A7)+,A0                                 | 205F
++0042  000046  MOVE.W     (A7)+,D0                                 | 301F
++0044  000048  MOVE.L     A1,-(A7)                                 | 2F09
++0046  00004A  _SysEnvirons                   ; A090               | A090
++0048  00004C  MOVE.W     D0,$0004(A7)                             | 3F40 0004
++004C  000050  RTS                                                 | 4E75
+Anon2
++0000  000052  MOVEA.L    $0004(A7),A0                             | 206F 0004
++0004  000056  MOVE.W     #$0001,D0                                | 303C 0001
++0008  00005A  MOVEA.L    A0,A1                                    | 2248
++000A  00005C  BRA.S      Anon2+$0012         ; 00000064           | 6006
++000C  00005E  BTST       D1,(A3)                                  | 0313
++000E  000060  BTST       D5,D2                                    | 0B02
++0010  000062  BTST       D0,D0                                    | 0100
++0012  000064  MOVE.W     #$0010,D0                                | 303C 0010
++0016  000068  ASR.W      #$1,D0                                   | E240
++0018  00006A  SUBQ.W     #$1,D0                                   | 5340
++001A  00006C  CLR.W      (A0)+                                    | 4258
++001C  00006E  DBF        D0,Anon2+$001A      ; 0000006C           | 51C8 FFFC
++0020  000072  MOVE.W     #$0001,(A1)                              | 32BC 0001
++0024  000076  MOVEA.L    ROMBase,A0                               | 2078 02AE
++0028  00007A  MOVE.W     #$FFFE,$0002(A1)                         | 337C FFFE 0002
++002E  000080  CMPI.B     #$FF,$0009(A0)                           | 0C28 00FF 0009
++0034  000086  BEQ.S      Anon2+$0078         ; 000000CA           | 6742
++0036  000088  TST.B      $0008(A0)                                | 4A28 0008
++003A  00008C  BGT.S      Anon2+$005C         ; 000000AE           | 6E20
++003C  00008E  MOVE.W     #$FFFF,$0002(A1)                         | 337C FFFF 0002
++0042  000094  TST.W      ROM85                                    | 4A78 028E
++0046  000098  BMI.S      Anon2+$0078         ; 000000CA           | 6B30
++0048  00009A  MOVE.W     #$0001,$0002(A1)                         | 337C 0001 0002
++004E  0000A0  TST.W      HWCfgFlags                               | 4A78 0B22
++0052  0000A4  BPL.S      Anon2+$0078         ; 000000CA           | 6A24
++0054  0000A6  MOVE.W     #$0002,$0002(A1)                         | 337C 0002 0002
++005A  0000AC  BRA.S      Anon2+$0078         ; 000000CA           | 601C
++005C  0000AE  CLR.W      $0002(A1)                                | 4269 0002
++0060  0000B2  CMPI.B     #$02,$0008(A0)                           | 0C28 0002 0008
++0066  0000B8  BGT.S      Anon2+$0078         ; 000000CA           | 6E10
++0068  0000BA  BEQ.S      Anon2+$0072         ; 000000C4           | 6708
++006A  0000BC  MOVE.W     #$0004,$0002(A1)                         | 337C 0004 0002
++0070  0000C2  BRA.S      Anon2+$0078         ; 000000CA           | 6006
++0072  0000C4  MOVE.W     #$0003,$0002(A1)                         | 337C 0003 0002
++0078  0000CA  CLR.W      $0004(A1)                                | 4269 0004
++007C  0000CE  CMPI.B     #$02,CPUFlag                             | 0C38 0002 012F
++0082  0000D4  BGT.S      Anon2+$008E         ; 000000E0           | 6E0A
++0084  0000D6  MOVE.B     CPUFlag,D0                               | 1038 012F
++0088  0000DA  ADDQ.W     #$1,D0                                   | 5240
++008A  0000DC  MOVE.B     D0,$0007(A1)                             | 1340 0007
++008E  0000E0  TST.W      ROM85                                    | 4A78 028E
++0092  0000E4  BMI.S      Anon2+$00A2         ; 000000F4           | 6B0E
++0094  0000E6  BTST       #$04,HWCfgFlags                          | 0838 0004 0B22
++009A  0000EC  BEQ.S      Anon2+$00A2         ; 000000F4           | 6706
++009C  0000EE  MOVE.B     #$01,$0008(A1)                           | 137C 0001 0008
++00A2  0000F4  CMPI.W     #$3FFF,ROM85                             | 0C78 3FFF 028E
++00A8  0000FA  BHI.S      Anon2+$00B0         ; 00000102           | 6206
++00AA  0000FC  MOVE.B     #$01,$0009(A1)                           | 137C 0001 0009
++00B0  000102  MOVE.B     KbdType,D0                               | 1038 021E
++00B4  000106  LEA        Anon2+$0011,A0      ; 00000063           | 41FA FF5B
++00B8  00010A  MOVE.W     #$0004,D1                                | 323C 0004
++00BC  00010E  CMP.B      -(A0),D0                                 | B020
++00BE  000110  DBEQ       D1,Anon2+$00BC      ; 0000010E           | 57C9 FFFC
++00C2  000114  ADDQ.W     #$1,D1                                   | 5241
++00C4  000116  MOVE.W     D1,$000A(A1)                             | 3341 000A
++00C8  00011A  TST.B      PortBUse                                 | 4A38 0291
++00CC  00011E  BMI.S      Anon2+$00E6         ; 00000138           | 6B18
++00CE  000120  MOVE.B     SPConfig,D1                              | 1238 01FB
++00D2  000124  ANDI.B     #$0F,D1                                  | 0201 000F
++00D6  000128  CMPI.B     #$01,D1                                  | 0C01 0001
++00DA  00012C  BNE.S      Anon2+$00E6         ; 00000138           | 660A
++00DC  00012E  MOVEA.L    $02DC,A0                                 | 2078 02DC
++00E0  000132  MOVE.B     $0007(A0),$000D(A1)                      | 1368 0007 000D
++00E6  000138  MOVE.W     BootDrive,$000E(A1)                      | 3378 0210 000E
++00EC  00013E  TST.W      FSFCBLen                                 | 4A78 03F6
++00F0  000142  BLT.S      Anon2+$0136         ; 00000188           | 6D44
++00F2  000144  CLR.W      $000E(A1)                                | 4269 000E
++00F6  000148  MOVE.W     #$003C,D1                                | 323C 003C
++00FA  00014C  CLR.W      -(A7)                                    | 4267
++00FC  00014E  DBF        D1,Anon2+$00FA      ; 0000014C           | 51C9 FFFC
++0100  000152  MOVEA.L    A7,A0                                    | 204F
++0102  000154  MOVE.W     SysMap,$0018(A0)                         | 3178 0A58 0018
++0108  00015A  MOVEQ      #$08,D0                                  | 7008
++010A  00015C  _FSDispatch,Immed              ; A260               | A260
++010C  00015E  BNE.S      Anon2+$0132         ; 00000184           | 6624
++010E  000160  MOVE.W     $0034(A0),$0016(A0)                      | 3168 0034 0016
++0114  000166  _GetVolInfo,Immed              ; A207               | A207
++0116  000168  BNE.S      Anon2+$0132         ; 00000184           | 661A
++0118  00016A  MOVE.L     $005A(A0),$0030(A0)                      | 2168 005A 0030
++011E  000170  MOVE.L     #$4552494B,$001C(A0); 'ERIK'             | 217C 4552 494B 001C
++0126  000178  MOVEQ      #$01,D0                                  | 7001
++0128  00017A  _FSDispatch,Immed              ; A260               | A260
++012A  00017C  BNE.S      Anon2+$0132         ; 00000184           | 6606
++012C  00017E  MOVE.W     $0016(A0),$000E(A1)                      | 3368 0016 000E
++0132  000184  ADDA.W     #$007A,A7                                | DEFC 007A
++0136  000188  MOVEA.L    A1,A0                                    | 2049
++0138  00018A  MOVEA.L    (A7)+,A1                                 | 225F
++013A  00018C  ADDQ.W     #$6,A7                                   | 5C4F
++013C  00018E  MOVE.W     #$EA84,(A7)                              | 3EBC EA84
++0140  000192  JMP        (A1)                                     | 4ED1
++0142  000194  MOVEA.L    (A7)+,A1                                 | 225F
++0144  000196  MOVE.W     (A7)+,SysEvtMask                         | 31DF 0144
++0148  00019A  JMP        (A1)                                     | 4ED1
++014A  00019C  MOVEA.L    (A7)+,A1                                 | 225F
++014C  00019E  MOVE.L     (A7)+,D0                                 | 201F
++014E  0001A0  MOVE.L     A1,-(A7)                                 | 2F09
++0150  0001A2  _FlushEvents                   ; A032               | A032
++0152  0001A4  RTS                                                 | 4E75
+Anon3
++0000  0001A6  MOVEQ      #$00,D0                                  | 7000
++0002  0001A8  MOVE.L     A1,-(A7)                                 | 2F09
++0004  0001AA  MOVE.W     D0,MemErr                                | 31C0 0220
++0008  0001AE  RTS                                                 | 4E75
+Anon4
++0000  0001B0  MOVEQ      #$00,D0                                  | 7000
++0002  0001B2  BRA.S      Anon3+$0004         ; 000001AA           | 60F6
++0004  0001B4  _FreeMem                       ; A01C               | A01C
++0006  0001B6  MOVE.L     D0,$0004(A7)                             | 2F40 0004
++000A  0001BA  JMP        Anon4               ; 000001B0           | 4EFA FFF4
++000E  0001BE  TST.W      ROM85                                    | 4A78 028E
++0012  0001C2  BPL.S      Anon5               ; 000001EE           | 6A2A
++0014  0001C4  MOVEA.L    ApplLimit,A0                             | 2078 0130
++0018  0001C8  LEA        HeapEnd,A1                               | 43F8 0114
++001C  0001CC  MOVE.L     A0,D0                                    | 2008
++001E  0001CE  SUB.L      (A1),D0                                  | 9091
++0020  0001D0  MOVEQ      #$0C,D2                                  | 740C
++0022  0001D2  CMP.L      D2,D0                                    | B082
++0024  0001D4  BCS.S      Anon4+$003C         ; 000001EC           | 6516
++0026  0001D6  MOVEA.L    (A1),A1                                  | 2251
++0028  0001D8  MOVE.L     A0,HeapEnd                               | 21C8 0114
++002C  0001DC  MOVE.L     D0,(A1)                                  | 2280
++002E  0001DE  CLR.B      (A1)                                     | 4211
++0030  0001E0  MOVEA.L    ApplZone,A1                              | 2278 02AA
++0034  0001E4  MOVE.L     A0,(A1)                                  | 2288
++0036  0001E6  MOVE.L     D2,(A0)                                  | 2082
++0038  0001E8  ADD.L      D0,$000C(A1)                             | D1A9 000C
++003C  0001EC  RTS                                                 | 4E75
+Anon5
++0000  0001EE  _MaxApplZone                   ; A063               | A063
++0002  0001F0  RTS                                                 | 4E75
+Anon6
++0000  0001F2  MOVEA.L    (A7)+,A1                                 | 225F
++0002  0001F4  MOVEA.L    (A7)+,A0                                 | 205F
++0004  0001F6  _MoveHHi                       ; A064               | A064
++0006  0001F8  JMP        (A1)                                     | 4ED1
++0008  0001FA  TST.W      ROM85                                    | 4A78 028E
++000C  0001FE  BPL.S      Anon6               ; 000001F2           | 6AF2
++000E  000200  MOVEA.L    $0004(A7),A1                             | 226F 0004
++0012  000204  MOVEM.L    D3-D7/A2-A6,-(A7)                        | 48E7 1F3E
++0016  000208  MOVE.L     A1,D0                                    | 2009
++0018  00020A  AND.L      MaskBC,D0                                | C0B8 031A
++001C  00020E  BEQ.S      Anon6+$002A         ; 0000021C           | 670C
++001E  000210  MOVEA.L    D0,A1                                    | 2240
++0020  000212  MOVE.L     (A1),D0                                  | 2011
++0022  000214  AND.L      MaskBC,D0                                | C0B8 031A
++0026  000218  MOVEA.L    D0,A0                                    | 2040
++0028  00021A  BNE.S      Anon6+$0030         ; 00000222           | 6606
++002A  00021C  MOVEQ      #$93,D0                                  | 7093
++002C  00021E  BRA        Anon6+$0190         ; 00000382           | 6000 0162
++0030  000222  MOVEA.L    A1,A4                                    | 2849
++0032  000224  TST.B      (A4)                                     | 4A14
++0034  000226  BPL.S      Anon6+$003A         ; 0000022C           | 6A04
++0036  000228  MOVEQ      #$8B,D0                                  | 708B
++0038  00022A  BRA.S      Anon6+$002C         ; 0000021E           | 60F2
++003A  00022C  MOVEA.L    A1,A6                                    | 2C49
++003C  00022E  MOVE.L     -$0004(A0),D0                            | 2028 FFFC
++0040  000232  AND.L      MaskBC,D0                                | C0B8 031A
++0044  000236  SUBA.L     D0,A6                                    | 9DC0
++0046  000238  MOVEA.L    (A6),A3                                  | 2656
++0048  00023A  SUBQ.L     #$8,A0                                   | 5188
++004A  00023C  MOVE.L     (A0),D1                                  | 2210
++004C  00023E  AND.L      MaskBC,D1                                | C2B8 031A
++0050  000242  MOVE.L     D1,D7                                    | 2E01
++0052  000244  SUBQ.L     #$8,D7                                   | 5187
++0054  000246  MOVEQ      #$00,D0                                  | 7000
++0056  000248  ADDA.L     D1,A0                                    | D1C1
++0058  00024A  CMPA.L     A3,A0                                    | B1CB
++005A  00024C  BCC        Anon6+$0190         ; 00000382           | 6400 0134
++005E  000250  TST.B      (A0)                                     | 4A10
++0060  000252  BEQ.S      Anon6+$0072         ; 00000264           | 6710
++0062  000254  BPL        Anon6+$0190         ; 00000382           | 6A00 012C
++0066  000258  MOVEA.L    $0004(A0),A0                             | 2068 0004
++006A  00025C  ADDA.L     A6,A0                                    | D1CE
++006C  00025E  TST.B      (A0)                                     | 4A10
++006E  000260  BMI        Anon6+$0190         ; 00000382           | 6B00 0120
++0072  000264  MOVE.L     A7,D1                                    | 220F
++0074  000266  AND.L      MaskBC,D1                                | C2B8 031A
++0078  00026A  MOVEA.L    ApplZone,A0                              | 2078 02AA
++007C  00026E  SUB.L      (A0),D1                                  | 9290
++007E  000270  MOVE.L     #$00000400,D2                            | 243C 0000 0400
++0084  000276  MOVE.L     D2,D0                                    | 2002
++0086  000278  ADD.L      D7,D0                                    | D087
++0088  00027A  CMP.L      D0,D1                                    | B280
++008A  00027C  BLT.S      Anon6+$008E         ; 00000280           | 6D02
++008C  00027E  MOVE.L     D0,D1                                    | 2200
++008E  000280  MOVEQ      #$FF,D0                                  | 70FF
++0090  000282  CMP.L      D2,D1                                    | B282
++0092  000284  BLT        Anon6+$0190         ; 00000382           | 6D00 00FC
++0096  000288  SUBI.L     #$00000080,D2                            | 0482 0000 0080
++009C  00028E  SUB.L      D2,D1                                    | 9282
++009E  000290  SUBA.L     D1,A7                                    | 9FC1
++00A0  000292  SUBA.W     #$0016,A7                                | 9EFC 0016
++00A4  000296  MOVEA.L    A7,A5                                    | 2A4F
++00A6  000298  MOVE.L     D1,$0008(A5)                             | 2B41 0008
++00AA  00029C  MOVE.L     TheZone,$0012(A5)                        | 2B78 0118 0012
++00B0  0002A2  MOVE.L     A6,TheZone                               | 21CE 0118
++00B4  0002A6  MOVEA.L    (A4),A0                                  | 2054
++00B6  0002A8  SUBQ.W     #$8,A0                                   | 5148
++00B8  0002AA  MOVE.L     (A0),(A5)                                | 2A90
++00BA  0002AC  MOVE.L     (A4),D0                                  | 2014
++00BC  0002AE  AND.L      MaskBC,D0                                | C0B8 031A
++00C0  0002B2  MOVE.L     D0,$000C(A5)                             | 2B40 000C
++00C4  0002B6  MOVE.B     (A4),$0010(A5)                           | 1B54 0010
++00C8  0002BA  BSR        Anon7               ; 0000038E           | 6100 00D2
++00CC  0002BE  TST.B      (A2)                                     | 4A12
++00CE  0002C0  BNE.S      Anon6+$00FA         ; 000002EC           | 662A
++00D0  0002C2  MOVE.L     (A2),D1                                  | 2212
++00D2  0002C4  MOVE.L     D1,D0                                    | 2001
++00D4  0002C6  SUBQ.L     #$8,D0                                   | 5180
++00D6  0002C8  CMP.L      D0,D7                                    | BE80
++00D8  0002CA  BHI.S      Anon6+$00FA         ; 000002EC           | 6220
++00DA  0002CC  SUB.L      D7,D0                                    | 9087
++00DC  0002CE  BEQ.S      Anon6+$00E4         ; 000002D6           | 6706
++00DE  0002D0  MOVEQ      #$0C,D2                                  | 740C
++00E0  0002D2  CMP.L      D2,D0                                    | B082
++00E2  0002D4  BCS.S      Anon6+$00FA         ; 000002EC           | 6516
++00E4  0002D6  MOVEA.L    (A4),A0                                  | 2054
++00E6  0002D8  MOVEA.L    A2,A1                                    | 224A
++00E8  0002DA  ADDA.L     D1,A1                                    | D3C1
++00EA  0002DC  MOVE.L     D7,D0                                    | 2007
++00EC  0002DE  SUBA.L     D0,A1                                    | 93C0
++00EE  0002E0  SUB.L      D0,$000C(A6)                             | 91AE 000C
++00F2  0002E4  _BlockMove                     ; A02E               | A02E
++00F4  0002E6  MOVEA.L    A4,A0                                    | 204C
++00F6  0002E8  _EmptyHandle                   ; A02B               | A02B
++00F8  0002EA  BRA.S      Anon6+$0162         ; 00000354           | 6068
++00FA  0002EC  MOVEQ      #$00,D6                                  | 7C00
++00FC  0002EE  BSR        Anon8               ; 000003C8           | 6100 00D8
++0100  0002F2  BSR        Anon10              ; 00000406           | 6100 0112
++0104  0002F6  BSR        Anon7               ; 0000038E           | 6100 0096
++0108  0002FA  MOVE.L     (A2),D1                                  | 2212
++010A  0002FC  MOVE.L     $0004(A5),D0                             | 202D 0004
++010E  000300  LEA        $0016(A5),A0                             | 41ED 0016
++0112  000304  MOVEA.L    A2,A1                                    | 224A
++0114  000306  ADDA.L     D1,A1                                    | D3C1
++0116  000308  SUBA.L     D0,A1                                    | 93C0
++0118  00030A  ADD.L      D0,D6                                    | DC80
++011A  00030C  SUB.L      D0,$000C(A6)                             | 91AE 000C
++011E  000310  _BlockMove                     ; A02E               | A02E
++0120  000312  TST.L      D7                                       | 4A87
++0122  000314  BEQ.S      Anon6+$0162         ; 00000354           | 673E
++0124  000316  MOVE.L     A1,D0                                    | 2009
++0126  000318  SUB.L      A2,D0                                    | 908A
++0128  00031A  BEQ.S      Anon6+$0140         ; 00000332           | 6716
++012A  00031C  MOVE.L     D0,D1                                    | 2200
++012C  00031E  SUBQ.L     #$8,D1                                   | 5181
++012E  000320  SUB.L      D7,D1                                    | 9287
++0130  000322  BCS.S      Anon6+$013E         ; 00000330           | 650C
++0132  000324  BEQ.S      Anon6+$013A         ; 0000032C           | 6706
++0134  000326  MOVEQ      #$0C,D2                                  | 740C
++0136  000328  CMP.L      D1,D2                                    | B481
++0138  00032A  BCS.S      Anon6+$013E         ; 00000330           | 6504
++013A  00032C  MOVEA.L    (A4),A0                                  | 2054
++013C  00032E  BRA.S      Anon6+$00EA         ; 000002DC           | 60AC
++013E  000330  MOVE.L     D0,(A2)                                  | 2480
++0140  000332  MOVEM.L    (A1),D4/D5                               | 4CD1 0030
++0144  000336  MOVE.L     A6,$0004(A1)                             | 234E 0004
++0148  00033A  MOVE.L     D6,(A1)                                  | 2286
++014A  00033C  MOVE.B     #$40,(A1)           ; '@'                | 12BC 0040
++014E  000340  MOVE.L     A1,-(A7)                                 | 2F09
++0150  000342  BSR        Anon8               ; 000003C8           | 6100 0084
++0154  000346  BSR        Anon10              ; 00000406           | 6100 00BE
++0158  00034A  BSR.S      Anon7               ; 0000038E           | 6142
++015A  00034C  MOVEA.L    (A7)+,A1                                 | 225F
++015C  00034E  MOVEM.L    D4/D5,(A1)                               | 48D1 0030
++0160  000352  BRA.S      Anon6+$0108         ; 000002FA           | 60A6
++0162  000354  SUBQ.L     #$8,A1                                   | 5189
++0164  000356  SUBQ.L     #$8,$000C(A6)                            | 51AE 000C
++0168  00035A  MOVE.L     A1,D0                                    | 2009
++016A  00035C  SUB.L      A2,D0                                    | 908A
++016C  00035E  BEQ.S      Anon6+$0170         ; 00000362           | 6702
++016E  000360  MOVE.L     D0,(A2)                                  | 2480
++0170  000362  MOVEA.L    A1,A2                                    | 2449
++0172  000364  MOVE.L     (A5),(A2)+                               | 24D5
++0174  000366  MOVEA.L    A4,A0                                    | 204C
++0176  000368  SUBA.L     A6,A0                                    | 91CE
++0178  00036A  MOVE.L     A0,(A2)+                                 | 24C8
++017A  00036C  MOVE.L     A2,(A4)                                  | 288A
++017C  00036E  MOVE.B     $0010(A5),(A4)                           | 18AD 0010
++0180  000372  MOVE.L     $0012(A5),TheZone                        | 21ED 0012 0118
++0186  000378  MOVEQ      #$00,D0                                  | 7000
++0188  00037A  ADDA.L     $0008(A5),A7                             | DFED 0008
++018C  00037E  ADDA.W     #$0016,A7                                | DEFC 0016
++0190  000382  MOVEM.L    (A7)+,D3-D7/A2-A6                        | 4CDF 7CF8
++0194  000386  MOVE.L     (A7)+,(A7)                               | 2E9F
++0196  000388  MOVE.W     D0,MemErr                                | 31C0 0220
++019A  00038C  RTS                                                 | 4E75
+Anon7
++0000  00038E  MOVE.L     (A4),D0                                  | 2014
++0002  000390  BEQ.S      Anon7+$000E         ; 0000039C           | 670A
++0004  000392  AND.L      MaskBC,D0                                | C0B8 031A
++0008  000396  MOVEA.L    D0,A0                                    | 2040
++000A  000398  SUBQ.W     #$8,A0                                   | 5148
++000C  00039A  BRA.S      Anon7+$0012         ; 000003A0           | 6004
++000E  00039C  LEA        $0034(A6),A0                             | 41EE 0034
++0012  0003A0  MOVE.L     (A0),D1                                  | 2210
++0014  0003A2  AND.L      MaskBC,D1                                | C2B8 031A
++0018  0003A6  TST.B      (A0)                                     | 4A10
++001A  0003A8  BEQ.S      Anon7+$0028         ; 000003B6           | 670C
++001C  0003AA  BPL.S      Anon7+$0032         ; 000003C0           | 6A14
++001E  0003AC  MOVEA.L    $0004(A0),A1                             | 2268 0004
++0022  0003B0  ADDA.L     A6,A1                                    | D3CE
++0024  0003B2  TST.B      (A1)                                     | 4A11
++0026  0003B4  BMI.S      Anon7+$0032         ; 000003C0           | 6B0A
++0028  0003B6  MOVEA.L    A0,A2                                    | 2448
++002A  0003B8  ADDA.L     D1,A0                                    | D1C1
++002C  0003BA  CMPA.L     A3,A0                                    | B1CB
++002E  0003BC  BCS.S      Anon7+$0012         ; 000003A0           | 65E2
++0030  0003BE  BRA.S      Anon7+$0038         ; 000003C6           | 6006
++0032  0003C0  CMPA.L     $000C(A5),A0                             | B1ED 000C
++0036  0003C4  BLS.S      Anon7+$0028         ; 000003B6           | 63F0
++0038  0003C6  RTS                                                 | 4E75
+Anon8
++0000  0003C8  MOVE.L     $0008(A5),D0                             | 202D 0008
++0004  0003CC  CMP.L      D7,D0                                    | B087
++0006  0003CE  BLT.S      Anon8+$000A         ; 000003D2           | 6D02
++0008  0003D0  MOVE.L     D7,D0                                    | 2007
++000A  0003D2  LEA        $0016(A5),A1                             | 43ED 0016
++000E  0003D6  MOVEA.L    (A4),A0                                  | 2054
++0010  0003D8  ADDA.L     D7,A0                                    | D1C7
++0012  0003DA  SUBA.L     D0,A0                                    | 91C0
++0014  0003DC  SUB.L      D0,D7                                    | 9E80
++0016  0003DE  MOVE.L     D0,$0004(A5)                             | 2B40 0004
++001A  0003E2  MOVE.L     D0,D1                                    | 2200
++001C  0003E4  _BlockMove                     ; A02E               | A02E
++001E  0003E6  MOVEA.L    A4,A0                                    | 204C
++0020  0003E8  MOVE.L     D7,D0                                    | 2007
++0022  0003EA  BNE.S      Anon9               ; 000003F0           | 6604
++0024  0003EC  _EmptyHandle                   ; A02B               | A02B
++0026  0003EE  RTS                                                 | 4E75
+Anon9
++0000  0003F0  MOVEA.L    (A0),A0                                  | 2050
++0002  0003F2  SUBQ.W     #$8,A0                                   | 5148
++0004  0003F4  MOVE.B     (A0),D2                                  | 1410
++0006  0003F6  ADDQ.L     #$8,D0                                   | 5080
++0008  0003F8  MOVE.L     D0,(A0)                                  | 2080
++000A  0003FA  MOVE.B     D2,(A0)                                  | 1082
++000C  0003FC  ADDA.L     D0,A0                                    | D1C0
++000E  0003FE  MOVE.L     D1,(A0)                                  | 2081
++0010  000400  ADD.L      D1,$000C(A6)                             | D3AE 000C
++0014  000404  RTS                                                 | 4E75
+Anon10
++0000  000406  MOVE.L     #$00800000,D0                            | 203C 0080 0000
++0006  00040C  _CompactMem                    ; A04C               | A04C
++0008  00040E  RTS                                                 | 4E75
+Anon11
++0000  000410  MOVEA.L    (A7)+,A1                                 | 225F
++0002  000412  MOVE.L     (A7)+,D0                                 | 201F
++0004  000414  _NewPtr                        ; A11E               | A11E
++0006  000416  MOVE.L     A0,(A7)                                  | 2E88
++0008  000418  JMP        Anon3+$0002         ; 000001A8           | 4EFA FD8E
++000C  00041C  MOVEA.L    (A7)+,A1                                 | 225F
++000E  00041E  MOVEA.L    (A7)+,A0                                 | 205F
++0010  000420  _DisposePtr                    ; A01F               | A01F
++0012  000422  JMP        Anon3+$0002         ; 000001A8           | 4EFA FD84
++0016  000426  MOVEA.L    (A7)+,A1                                 | 225F
++0018  000428  MOVE.L     (A7)+,D0                                 | 201F
++001A  00042A  _NewHandle                     ; A122               | A122
++001C  00042C  MOVE.L     A0,(A7)                                  | 2E88
++001E  00042E  JMP        Anon3+$0002         ; 000001A8           | 4EFA FD78
++0022  000432  MOVEA.L    (A7)+,A1                                 | 225F
++0024  000434  MOVEA.L    (A7)+,A0                                 | 205F
++0026  000436  _DisposeHandle                 ; A023               | A023
++0028  000438  JMP        Anon3+$0002         ; 000001A8           | 4EFA FD6E
++002C  00043C  MOVEA.L    (A7)+,A1                                 | 225F
++002E  00043E  MOVEA.L    (A7)+,A0                                 | 205F
++0030  000440  _RecoverHandle                 ; A128               | A128
++0032  000442  MOVE.L     A0,(A7)                                  | 2E88
++0034  000444  JMP        Anon3               ; 000001A6           | 4EFA FD60
++0038  000448  MOVEA.L    (A7)+,A1                                 | 225F
++003A  00044A  MOVEA.L    (A7)+,A0                                 | 205F
++003C  00044C  _HLock                         ; A029               | A029
++003E  00044E  JMP        Anon3+$0002         ; 000001A8           | 4EFA FD58
++0042  000452  MOVEA.L    (A7)+,A1                                 | 225F
++0044  000454  MOVEA.L    (A7)+,A0                                 | 205F
++0046  000456  _HUnlock                       ; A02A               | A02A
++0048  000458  JMP        Anon3+$0002         ; 000001A8           | 4EFA FD4E
++004C  00045C  MOVEA.L    (A7)+,A1                                 | 225F
++004E  00045E  MOVEA.L    (A7)+,A0                                 | 205F
++0050  000460  _HNoPurge                      ; A04A               | A04A
++0052  000462  JMP        Anon3+$0002         ; 000001A8           | 4EFA FD44
++0056  000466  _MoreMasters                   ; A036               | A036
++0058  000468  JMP        Anon3+$0004         ; 000001AA           | 4EFA FD40
++005C  00046C  MOVEA.L    (A7)+,A1                                 | 225F
++005E  00046E  MOVE.B     (A7)+,D1                                 | 121F
++0060  000470  MOVE.W     (A7)+,D0                                 | 301F
++0062  000472  MOVE.L     A1,-(A7)                                 | 2F09
++0064  000474  TST.B      D1                                       | 4A01
++0066  000476  BEQ.S      Anon11+$006C        ; 0000047C           | 6704
++0068  000478  _GetTrapAddress,Sys,Immed      ; A746               | A746
++006A  00047A  BRA.S      Anon11+$006E        ; 0000047E           | 6002
++006C  00047C  _GetTrapAddress,Immed          ; A346               | A346
++006E  00047E  MOVE.L     A0,$0004(A7)                             | 2F48 0004
++0072  000482  RTS                                                 | 4E75
+Anon12
++0000  000484  MOVE.L     (A7)+,D0                                 | 201F
++0002  000486  MOVEA.L    (A7)+,A1                                 | 225F
++0004  000488  MOVEA.L    (A7)+,A0                                 | 205F
++0006  00048A  MOVE.L     D0,-(A7)                                 | 2F00
++0008  00048C  _Delay                         ; A03B               | A03B
++000A  00048E  MOVE.L     D0,(A1)                                  | 2280
++000C  000490  RTS                                                 | 4E75
+Anon13
++0000  000492  MOVEA.L    (A7)+,A1                                 | 225F
++0002  000494  MOVEA.L    (A7)+,A0                                 | 205F
++0004  000496  MOVE.W     (A7)+,D0                                 | 301F
++0006  000498  _GetOSEvent                    ; A031               | A031
++0008  00049A  TST.W      D0                                       | 4A40
++000A  00049C  BEQ.S      Anon13+$0010        ; 000004A2           | 6704
++000C  00049E  CLR.B      (A7)                                     | 4217
++000E  0004A0  BRA.S      Anon13+$0014        ; 000004A6           | 6004
++0010  0004A2  MOVE.B     #$01,(A7)                                | 1EBC 0001
++0014  0004A6  JMP        (A1)                                     | 4ED1
++0016  0004A8  TST.W      ROM85                                    | 4A78 028E
++001A  0004AC  BMI.S      Anon14              ; 000004D2           | 6B24
++001C  0004AE  MOVEA.L    (A7)+,A0                                 | 205F
++001E  0004B0  MOVE.W     (A7)+,D0                                 | 301F
++0020  0004B2  MOVE.L     A0,-(A7)                                 | 2F08
++0022  0004B4  LINK       A6,#$FFE0                                | 4E56 FFE0
++0026  0004B8  LEA        -$0020(A6),A0                            | 41EE FFE0
++002A  0004BC  MOVE.W     #$FFFC,$0018(A0)                         | 317C FFFC 0018
++0030  0004C2  MOVE.W     #$0002,$001A(A0)                         | 317C 0002 001A
++0036  0004C8  MOVE.W     D0,$001C(A0)                             | 3140 001C
++003A  0004CC  _Control   ,Immed              ; A204               | A204
++003C  0004CE  UNLK       A6                                       | 4E5E
++003E  0004D0  RTS                                                 | 4E75
+Anon14
++0000  0004D2  MOVEA.L    (A7)+,A0                                 | 205F
++0002  0004D4  MOVE.W     (A7)+,D0                                 | 301F
++0004  0004D6  MOVE.L     A0,-(A7)                                 | 2F08
++0006  0004D8  CMPI.B     #$FF,$00400009                           | 0C39 00FF 0040 0009
++000E  0004E0  BEQ.S      Anon15              ; 00000506           | 6724
++0010  0004E2  MOVE       SR,-(A7)                                 | 40E7
++0012  0004E4  ORI.W      #$0300,SR                                | 007C 0300
++0016  0004E8  MOVE.B     $00EFFFFE,D1                             | 1239 00EF FFFE
++001C  0004EE  ANDI.W     #$00F8,D1                                | 0241 00F8
++0020  0004F2  ANDI.W     #$0007,D0                                | 0240 0007
++0024  0004F6  MOVE.B     D0,SdVolume                              | 11C0 0260
++0028  0004FA  OR.W       D0,D1                                    | 8240
++002A  0004FC  MOVE.B     D1,$00EFFFFE                             | 13C1 00EF FFFE
++0030  000502  MOVE       (A7)+,SR                                 | 46DF
++0032  000504  RTS                                                 | 4E75
+Anon15
++0000  000506  ANDI.W     #$0007,D0                                | 0240 0007
++0004  00050A  MOVE.B     D0,SdVolume                              | 11C0 0260
++0008  00050E  LSL.W      #$1,D0                                   | E348
++000A  000510  MOVE.B     $00FCDD81,D1                             | 1239 00FC DD81
++0010  000516  ANDI.B     #$F1,D1                                  | 0201 00F1
++0014  00051A  OR.B       D0,D1                                    | 8200
++0016  00051C  MOVE.B     D1,$00FCDD81                             | 13C1 00FC DD81
++001C  000522  RTS                                                 | 4E75
+Anon16
++0000  000524  MOVEA.L    (A7)+,A0                                 | 205F
++0002  000526  MOVEA.L    (A7)+,A1                                 | 225F
++0004  000528  CLR.B      (A1)+                                    | 4219
++0006  00052A  MOVE.B     SdVolume,(A1)                            | 12B8 0260
++000A  00052E  JMP        (A0)                                     | 4ED0
+Anon17
++0000  000530  MOVE.B     MMU32bit,$0004(A7)                       | 1F78 0CB2 0004
++0006  000536  RTS                                                 | 4E75
+Anon18
++0000  000538  MOVEA.L    $0004(A7),A0                             | 206F 0004
++0004  00053C  MOVE.B     (A0),D0                                  | 1010
++0006  00053E  _SwapMMUMode                   ; A05D               | A05D
++0008  000540  MOVEA.L    $0004(A7),A0                             | 206F 0004
++000C  000544  MOVE.B     D0,(A0)                                  | 1080
++000E  000546  MOVEA.L    (A7)+,A0                                 | 205F
++0010  000548  ADDQ.W     #$4,A7                                   | 584F
++0012  00054A  JMP        (A0)                                     | 4ED0
+Anon19
++0000  00054C  MOVEA.L    $0004(A7),A0                             | 206F 0004
++0004  000550  MOVE.L     $0008(A7),D0                             | 202F 0008
++0008  000554  CLR.W      -(A7)                                    | 4267
++000A  000556  _DECSTR68K                     ; A9EE               | A9EE
++000C  000558  MOVEA.L    (A7)+,A0                                 | 205F
++000E  00055A  ADDQ.W     #$8,A7                                   | 504F
++0010  00055C  JMP        (A0)                                     | 4ED0
+Anon20
++0000  00055E  TST.W      ROM85                                    | 4A78 028E
++0004  000562  BMI.S      Anon20+$0022        ; 00000580           | 6B1C
++0006  000564  MOVE.W     #$A89F,D0                                | 303C A89F
++000A  000568  _GetTrapAddress,Immed          ; A346               | A346
++000C  00056A  MOVEA.L    A0,A1                                    | 2248
++000E  00056C  MOVE.W     #$A055,D0                                | 303C A055
++0012  000570  _GetTrapAddress,Immed          ; A346               | A346
++0014  000572  CMPA.L     A0,A1                                    | B3C8
++0016  000574  BEQ.S      Anon20+$0022        ; 00000580           | 670A
++0018  000576  MOVEA.L    (A7)+,A1                                 | 225F
++001A  000578  MOVE.L     (A7)+,D0                                 | 201F
++001C  00057A  _StripAddress                  ; A055               | A055
++001E  00057C  MOVE.L     D0,(A7)                                  | 2E80
++0020  00057E  JMP        (A1)                                     | 4ED1
++0022  000580  MOVEA.L    (A7)+,A1                                 | 225F
++0024  000582  MOVE.L     (A7)+,D0                                 | 201F
++0026  000584  AND.L      MaskBC,D0                                | C0B8 031A
++002A  000588  MOVE.L     D0,(A7)                                  | 2E80
++002C  00058A  JMP        (A1)                                     | 4ED1
++002E  00058C  MOVEA.L    $0004(A7),A0                             | 206F 0004
++0032  000590  LEA        $0001(A0),A1                             | 43E8 0001
++0036  000594  MOVEQ      #$00,D0                                  | 7000
++0038  000596  MOVE.B     (A0),D1                                  | 1210
++003A  000598  MOVE.B     D0,(A0)+                                 | 10C0
++003C  00059A  MOVE.B     D1,D0                                    | 1001
++003E  00059C  BNE.S      Anon20+$0038        ; 00000596           | 66F8
++0040  00059E  SUBA.L     A1,A0                                    | 91C9
++0042  0005A0  MOVE.L     A0,D0                                    | 2008
++0044  0005A2  MOVE.B     D0,-(A1)                                 | 1300
++0046  0005A4  MOVE.L     A1,D0                                    | 2009
++0048  0005A6  RTS                                                 | 4E75
+Anon21
++0000  0005A8  MOVEA.L    $0004(A7),A0                             | 206F 0004
++0004  0005AC  MOVEQ      #$00,D0                                  | 7000
++0006  0005AE  MOVE.B     (A0),D0                                  | 1010
++0008  0005B0  BRA.S      Anon21+$000E        ; 000005B6           | 6004
++000A  0005B2  MOVE.B     $0001(A0),(A0)+                          | 10E8 0001
++000E  0005B6  DBF        D0,Anon21+$000A     ; 000005B2           | 51C8 FFFA
++0012  0005BA  CLR.B      (A0)                                     | 4210
++0014  0005BC  MOVE.L     $0004(A7),D0                             | 202F 0004
++0018  0005C0  RTS                                                 | 4E75
+XFERSIGN
++0000  0005C2  LINK       A6,#$0000                                | 4E56 0000
++0004  0005C6  MOVE.L     A4,-(A7)                                 | 2F0C
++0006  0005C8  MOVEA.L    $000C(A6),A4                             | 286E 000C
++000A  0005CC  ANDI.W     #$7FFF,(A4)                              | 0254 7FFF
++000E  0005D0  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0012  0005D4  TST.W      (A0)                                     | 4A50
++0014  0005D6  BGE.S      XFERSIGN+$001A      ; 000005DC           | 6C04
++0016  0005D8  BSET       #$07,(A4)                                | 08D4 0007
++001A  0005DC  MOVEA.L    (A7)+,A4                                 | 285F
++001C  0005DE  UNLK       A6                                       | 4E5E
++001E  0005E0  RTS                                                 | 4E75
++0020  0005E2  DC.B       'XFERSIGN'                               | 5846 4552 5349 474E
+ACOS
++0000  0005EA  LINK       A6,#$FFD8                                | 4E56 FFD8
++0004  0005EE  PEA        -$0052(A5)                               | 486D FFAE
++0008  0005F2  PEA        $000C(A6)                                | 486E 000C
++000C  0005F6  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++0010  0005FA  _FP68K                         ; A9EB               | A9EB
++0012  0005FC  BGT.S      ACOS+$0024          ; 0000060E           | 6E10
++0014  0005FE  PEA        -$003E(A5)                               | 486D FFC2
++0018  000602  PEA        $000C(A6)                                | 486E 000C
++001C  000606  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++0020  00060A  _FP68K                         ; A9EB               | A9EB
++0022  00060C  BGE.S      ACOS+$003C          ; 00000626           | 6C18
++0024  00060E  MOVEQ      #$21,D0             ; '!'                | 7021
++0026  000610  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++002A  000614  MOVEA.L    $0008(A6),A0                             | 206E 0008
++002E  000618  LEA        -$005C(A5),A1                            | 43ED FFA4
++0032  00061C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0034  00061E  MOVE.L     (A1)+,(A0)+                              | 20D9
++0036  000620  MOVE.W     (A1)+,(A0)+                              | 30D9
++0038  000622  BRA        ACOS+$00D0          ; 000006BA           | 6000 0096
++003C  000626  MOVE.L     -$0052(A5),-$000A(A6)                    | 2D6D FFAE FFF6
++0042  00062C  MOVE.L     -$004E(A5),-$0006(A6)                    | 2D6D FFB2 FFFA
++0048  000632  MOVE.W     -$004A(A5),-$0002(A6)                    | 3D6D FFB6 FFFE
++004E  000638  PEA        $000C(A6)                                | 486E 000C
++0052  00063C  PEA        -$000A(A6)                               | 486E FFF6
++0056  000640  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++005A  000644  _FP68K                         ; A9EB               | A9EB
++005C  000646  MOVE.L     -$0052(A5),-$0014(A6)                    | 2D6D FFAE FFEC
++0062  00064C  MOVE.L     -$004E(A5),-$0010(A6)                    | 2D6D FFB2 FFF0
++0068  000652  MOVE.W     -$004A(A5),-$000C(A6)                    | 3D6D FFB6 FFF4
++006E  000658  PEA        $000C(A6)                                | 486E 000C
++0072  00065C  PEA        -$0014(A6)                               | 486E FFEC
++0076  000660  MOVE.W     #$0000,-(A7)                             | 3F3C 0000
++007A  000664  _FP68K                         ; A9EB               | A9EB
++007C  000666  PEA        -$0014(A6)                               | 486E FFEC
++0080  00066A  PEA        -$000A(A6)                               | 486E FFF6
++0084  00066E  MOVE.W     #$0006,-(A7)                             | 3F3C 0006
++0088  000672  _FP68K                         ; A9EB               | A9EB
++008A  000674  LEA        (A6),A0                                  | 41D6
++008C  000676  MOVE.L     -(A0),-(A7)                              | 2F20
++008E  000678  MOVE.L     -(A0),-(A7)                              | 2F20
++0090  00067A  MOVE.W     -(A0),-(A7)                              | 3F20
++0092  00067C  PEA        -$001E(A6)                               | 486E FFE2
++0096  000680  JSR        SQRT                ; 000011D6           | 4EBA 0B54
++009A  000684  LEA        $000E(A7),A7                             | 4FEF 000E
++009E  000688  LEA        -$0014(A6),A0                            | 41EE FFEC
++00A2  00068C  MOVE.L     -(A0),-(A7)                              | 2F20
++00A4  00068E  MOVE.L     -(A0),-(A7)                              | 2F20
++00A6  000690  MOVE.W     -(A0),-(A7)                              | 3F20
++00A8  000692  PEA        -$0028(A6)                               | 486E FFD8
++00AC  000696  JSR        ATAN                ; 00000866           | 4EBA 01CE
++00B0  00069A  LEA        $000E(A7),A7                             | 4FEF 000E
++00B4  00069E  PEA        -$0048(A5)                               | 486D FFB8
++00B8  0006A2  PEA        -$0028(A6)                               | 486E FFD8
++00BC  0006A6  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++00C0  0006AA  _FP68K                         ; A9EB               | A9EB
++00C2  0006AC  MOVEA.L    $0008(A6),A0                             | 206E 0008
++00C6  0006B0  LEA        -$0028(A6),A1                            | 43EE FFD8
++00CA  0006B4  MOVE.L     (A1)+,(A0)+                              | 20D9
++00CC  0006B6  MOVE.L     (A1)+,(A0)+                              | 20D9
++00CE  0006B8  MOVE.W     (A1)+,(A0)+                              | 30D9
++00D0  0006BA  UNLK       A6                                       | 4E5E
++00D2  0006BC  RTS                                                 | 4E75
++00D4  0006BE  DC.B       'ACOS    '                               | 4143 4F53 2020 2020
+ASIN
++0000  0006C6  LINK       A6,#$FFD8                                | 4E56 FFD8
++0004  0006CA  LEA        $0016(A6),A0                             | 41EE 0016
++0008  0006CE  MOVE.L     -(A0),-(A7)                              | 2F20
++000A  0006D0  MOVE.L     -(A0),-(A7)                              | 2F20
++000C  0006D2  MOVE.W     -(A0),-(A7)                              | 3F20
++000E  0006D4  PEA        -$0014(A6)                               | 486E FFEC
++0012  0006D8  JSR        FABS                ; 0000126C           | 4EBA 0B92
++0016  0006DC  LEA        $000E(A7),A7                             | 4FEF 000E
++001A  0006E0  LEA        -$000A(A6),A0                            | 41EE FFF6
++001E  0006E4  LEA        -$0014(A6),A1                            | 43EE FFEC
++0022  0006E8  MOVE.L     (A1)+,(A0)+                              | 20D9
++0024  0006EA  MOVE.L     (A1)+,(A0)+                              | 20D9
++0026  0006EC  MOVE.W     (A1)+,(A0)+                              | 30D9
++0028  0006EE  PEA        -$0052(A5)                               | 486D FFAE
++002C  0006F2  PEA        -$000A(A6)                               | 486E FFF6
++0030  0006F6  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++0034  0006FA  _FP68K                         ; A9EB               | A9EB
++0036  0006FC  BLE.S      ASIN+$0050          ; 00000716           | 6F18
++0038  0006FE  MOVEQ      #$21,D0             ; '!'                | 7021
++003A  000700  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++003E  000704  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0042  000708  LEA        -$005C(A5),A1                            | 43ED FFA4
++0046  00070C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0048  00070E  MOVE.L     (A1)+,(A0)+                              | 20D9
++004A  000710  MOVE.W     (A1)+,(A0)+                              | 30D9
++004C  000712  BRA        ASIN+$0194          ; 0000085A           | 6000 0146
++0050  000716  PEA        -$002A(A5)                               | 486D FFD6
++0054  00071A  PEA        -$000A(A6)                               | 486E FFF6
++0058  00071E  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++005C  000722  _FP68K                         ; A9EB               | A9EB
++005E  000724  BLE        ASIN+$00EE          ; 000007B4           | 6F00 008E
++0062  000728  MOVE.L     -$0052(A5),-$0014(A6)                    | 2D6D FFAE FFEC
++0068  00072E  MOVE.L     -$004E(A5),-$0010(A6)                    | 2D6D FFB2 FFF0
++006E  000734  MOVE.W     -$004A(A5),-$000C(A6)                    | 3D6D FFB6 FFF4
++0074  00073A  PEA        -$000A(A6)                               | 486E FFF6
++0078  00073E  PEA        -$0014(A6)                               | 486E FFEC
++007C  000742  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++0080  000746  _FP68K                         ; A9EB               | A9EB
++0082  000748  LEA        -$000A(A6),A0                            | 41EE FFF6
++0086  00074C  LEA        -$0014(A6),A1                            | 43EE FFEC
++008A  000750  MOVE.L     (A1)+,(A0)+                              | 20D9
++008C  000752  MOVE.L     (A1)+,(A0)+                              | 20D9
++008E  000754  MOVE.W     (A1)+,(A0)+                              | 30D9
++0090  000756  MOVE.L     -$0048(A5),-$0014(A6)                    | 2D6D FFB8 FFEC
++0096  00075C  MOVE.L     -$0044(A5),-$0010(A6)                    | 2D6D FFBC FFF0
++009C  000762  MOVE.W     -$0040(A5),-$000C(A6)                    | 3D6D FFC0 FFF4
++00A2  000768  PEA        -$000A(A6)                               | 486E FFF6
++00A6  00076C  PEA        -$0014(A6)                               | 486E FFEC
++00AA  000770  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++00AE  000774  _FP68K                         ; A9EB               | A9EB
++00B0  000776  MOVE.L     -$000A(A6),-$001E(A6)                    | 2D6E FFF6 FFE2
++00B6  00077C  MOVE.L     -$0006(A6),-$001A(A6)                    | 2D6E FFFA FFE6
++00BC  000782  MOVE.W     -$0002(A6),-$0016(A6)                    | 3D6E FFFE FFEA
++00C2  000788  PEA        -$000A(A6)                               | 486E FFF6
++00C6  00078C  PEA        -$001E(A6)                               | 486E FFE2
++00CA  000790  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++00CE  000794  _FP68K                         ; A9EB               | A9EB
++00D0  000796  PEA        -$001E(A6)                               | 486E FFE2
++00D4  00079A  PEA        -$0014(A6)                               | 486E FFEC
++00D8  00079E  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++00DC  0007A2  _FP68K                         ; A9EB               | A9EB
++00DE  0007A4  LEA        -$000A(A6),A0                            | 41EE FFF6
++00E2  0007A8  LEA        -$0014(A6),A1                            | 43EE FFEC
++00E6  0007AC  MOVE.L     (A1)+,(A0)+                              | 20D9
++00E8  0007AE  MOVE.L     (A1)+,(A0)+                              | 20D9
++00EA  0007B0  MOVE.W     (A1)+,(A0)+                              | 30D9
++00EC  0007B2  BRA.S      ASIN+$013C          ; 00000802           | 604E
++00EE  0007B4  MOVE.L     -$000A(A6),-$0014(A6)                    | 2D6E FFF6 FFEC
++00F4  0007BA  MOVE.L     -$0006(A6),-$0010(A6)                    | 2D6E FFFA FFF0
++00FA  0007C0  MOVE.W     -$0002(A6),-$000C(A6)                    | 3D6E FFFE FFF4
++0100  0007C6  PEA        -$000A(A6)                               | 486E FFF6
++0104  0007CA  PEA        -$0014(A6)                               | 486E FFEC
++0108  0007CE  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++010C  0007D2  _FP68K                         ; A9EB               | A9EB
++010E  0007D4  MOVE.L     -$0052(A5),-$001E(A6)                    | 2D6D FFAE FFE2
++0114  0007DA  MOVE.L     -$004E(A5),-$001A(A6)                    | 2D6D FFB2 FFE6
++011A  0007E0  MOVE.W     -$004A(A5),-$0016(A6)                    | 3D6D FFB6 FFEA
++0120  0007E6  PEA        -$0014(A6)                               | 486E FFEC
++0124  0007EA  PEA        -$001E(A6)                               | 486E FFE2
++0128  0007EE  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++012C  0007F2  _FP68K                         ; A9EB               | A9EB
++012E  0007F4  LEA        -$000A(A6),A0                            | 41EE FFF6
++0132  0007F8  LEA        -$001E(A6),A1                            | 43EE FFE2
++0136  0007FC  MOVE.L     (A1)+,(A0)+                              | 20D9
++0138  0007FE  MOVE.L     (A1)+,(A0)+                              | 20D9
++013A  000800  MOVE.W     (A1)+,(A0)+                              | 30D9
++013C  000802  LEA        (A6),A0                                  | 41D6
++013E  000804  MOVE.L     -(A0),-(A7)                              | 2F20
++0140  000806  MOVE.L     -(A0),-(A7)                              | 2F20
++0142  000808  MOVE.W     -(A0),-(A7)                              | 3F20
++0144  00080A  PEA        -$0014(A6)                               | 486E FFEC
++0148  00080E  JSR        SQRT                ; 000011D6           | 4EBA 09C6
++014C  000812  LEA        $000E(A7),A7                             | 4FEF 000E
++0150  000816  MOVE.L     $000C(A6),-$001E(A6)                     | 2D6E 000C FFE2
++0156  00081C  MOVE.L     $0010(A6),-$001A(A6)                     | 2D6E 0010 FFE6
++015C  000822  MOVE.W     $0014(A6),-$0016(A6)                     | 3D6E 0014 FFEA
++0162  000828  PEA        -$0014(A6)                               | 486E FFEC
++0166  00082C  PEA        -$001E(A6)                               | 486E FFE2
++016A  000830  MOVE.W     #$0006,-(A7)                             | 3F3C 0006
++016E  000834  _FP68K                         ; A9EB               | A9EB
++0170  000836  LEA        -$0014(A6),A0                            | 41EE FFEC
++0174  00083A  MOVE.L     -(A0),-(A7)                              | 2F20
++0176  00083C  MOVE.L     -(A0),-(A7)                              | 2F20
++0178  00083E  MOVE.W     -(A0),-(A7)                              | 3F20
++017A  000840  PEA        -$0028(A6)                               | 486E FFD8
++017E  000844  JSR        ATAN                ; 00000866           | 4EBA 0020
++0182  000848  LEA        $000E(A7),A7                             | 4FEF 000E
++0186  00084C  MOVEA.L    $0008(A6),A0                             | 206E 0008
++018A  000850  LEA        -$0028(A6),A1                            | 43EE FFD8
++018E  000854  MOVE.L     (A1)+,(A0)+                              | 20D9
++0190  000856  MOVE.L     (A1)+,(A0)+                              | 20D9
++0192  000858  MOVE.W     (A1)+,(A0)+                              | 30D9
++0194  00085A  UNLK       A6                                       | 4E5E
++0196  00085C  RTS                                                 | 4E75
++0198  00085E  DC.B       'ASIN    '                               | 4153 494E 2020 2020
+ATAN
++0000  000866  LINK       A6,#$0000                                | 4E56 0000
++0004  00086A  PEA        $000C(A6)                                | 486E 000C
++0008  00086E  MOVE.W     #$001E,-(A7)                             | 3F3C 001E
++000C  000872  _Elems68K                      ; A9EC               | A9EC
++000E  000874  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0012  000878  LEA        $000C(A6),A1                             | 43EE 000C
++0016  00087C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0018  00087E  MOVE.L     (A1)+,(A0)+                              | 20D9
++001A  000880  MOVE.W     (A1)+,(A0)+                              | 30D9
++001C  000882  UNLK       A6                                       | 4E5E
++001E  000884  RTS                                                 | 4E75
++0020  000886  DC.B       'ATAN    '                               | 4154 414E 2020 2020
+ATAN2
++0000  00088E  LINK       A6,#$FFD8                                | 4E56 FFD8
++0004  000892  MOVE.W     #$0000,-$000C(A6)                        | 3D7C 0000 FFF4
++000A  000898  PEA        -$000C(A6)                               | 486E FFF4
++000E  00089C  PEA        $0016(A6)                                | 486E 0016
++0012  0008A0  MOVE.W     #$2008,-(A7)                             | 3F3C 2008
++0016  0008A4  _FP68K                         ; A9EB               | A9EB
++0018  0008A6  BNE.S      ATAN2+$0048         ; 000008D6           | 662E
++001A  0008A8  MOVE.W     #$0000,-$000E(A6)                        | 3D7C 0000 FFF2
++0020  0008AE  PEA        -$000E(A6)                               | 486E FFF2
++0024  0008B2  PEA        $000C(A6)                                | 486E 000C
++0028  0008B6  MOVE.W     #$2008,-(A7)                             | 3F3C 2008
++002C  0008BA  _FP68K                         ; A9EB               | A9EB
++002E  0008BC  BNE.S      ATAN2+$0048         ; 000008D6           | 6618
++0030  0008BE  MOVEQ      #$21,D0             ; '!'                | 7021
++0032  0008C0  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++0036  0008C4  MOVEA.L    $0008(A6),A0                             | 206E 0008
++003A  0008C8  LEA        -$005C(A5),A1                            | 43ED FFA4
++003E  0008CC  MOVE.L     (A1)+,(A0)+                              | 20D9
++0040  0008CE  MOVE.L     (A1)+,(A0)+                              | 20D9
++0042  0008D0  MOVE.W     (A1)+,(A0)+                              | 30D9
++0044  0008D2  BRA        ATAN2+$0102         ; 00000990           | 6000 00BC
++0048  0008D6  MOVE.L     $000C(A6),-$0014(A6)                     | 2D6E 000C FFEC
++004E  0008DC  MOVE.L     $0010(A6),-$0010(A6)                     | 2D6E 0010 FFF0
++0054  0008E2  MOVE.W     $0014(A6),-$000C(A6)                     | 3D6E 0014 FFF4
++005A  0008E8  PEA        $0016(A6)                                | 486E 0016
++005E  0008EC  PEA        -$0014(A6)                               | 486E FFEC
++0062  0008F0  MOVE.W     #$0006,-(A7)                             | 3F3C 0006
++0066  0008F4  _FP68K                         ; A9EB               | A9EB
++0068  0008F6  LEA        -$000A(A6),A0                            | 41EE FFF6
++006C  0008FA  MOVE.L     -(A0),-(A7)                              | 2F20
++006E  0008FC  MOVE.L     -(A0),-(A7)                              | 2F20
++0070  0008FE  MOVE.W     -(A0),-(A7)                              | 3F20
++0072  000900  PEA        -$001E(A6)                               | 486E FFE2
++0076  000904  JSR        FABS                ; 0000126C           | 4EBA 0966
++007A  000908  LEA        $000E(A7),A7                             | 4FEF 000E
++007E  00090C  LEA        -$0014(A6),A0                            | 41EE FFEC
++0082  000910  MOVE.L     -(A0),-(A7)                              | 2F20
++0084  000912  MOVE.L     -(A0),-(A7)                              | 2F20
++0086  000914  MOVE.W     -(A0),-(A7)                              | 3F20
++0088  000916  PEA        -$0028(A6)                               | 486E FFD8
++008C  00091A  JSR        ATAN                ; 00000866           | 4EBA FF4A
++0090  00091E  LEA        $000E(A7),A7                             | 4FEF 000E
++0094  000922  LEA        -$000A(A6),A0                            | 41EE FFF6
++0098  000926  LEA        -$0028(A6),A1                            | 43EE FFD8
++009C  00092A  MOVE.L     (A1)+,(A0)+                              | 20D9
++009E  00092C  MOVE.L     (A1)+,(A0)+                              | 20D9
++00A0  00092E  MOVE.W     (A1)+,(A0)+                              | 30D9
++00A2  000930  MOVE.W     #$0000,-$000C(A6)                        | 3D7C 0000 FFF4
++00A8  000936  PEA        -$000C(A6)                               | 486E FFF4
++00AC  00093A  PEA        $0016(A6)                                | 486E 0016
++00B0  00093E  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++00B4  000942  _FP68K                         ; A9EB               | A9EB
++00B6  000944  BGE.S      ATAN2+$00E6         ; 00000974           | 6C2E
++00B8  000946  MOVE.L     -$0016(A5),-$0014(A6)                    | 2D6D FFEA FFEC
++00BE  00094C  MOVE.L     -$0012(A5),-$0010(A6)                    | 2D6D FFEE FFF0
++00C4  000952  MOVE.W     -$000E(A5),-$000C(A6)                    | 3D6D FFF2 FFF4
++00CA  000958  PEA        -$000A(A6)                               | 486E FFF6
++00CE  00095C  PEA        -$0014(A6)                               | 486E FFEC
++00D2  000960  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++00D6  000964  _FP68K                         ; A9EB               | A9EB
++00D8  000966  LEA        -$000A(A6),A0                            | 41EE FFF6
++00DC  00096A  LEA        -$0014(A6),A1                            | 43EE FFEC
++00E0  00096E  MOVE.L     (A1)+,(A0)+                              | 20D9
++00E2  000970  MOVE.L     (A1)+,(A0)+                              | 20D9
++00E4  000972  MOVE.W     (A1)+,(A0)+                              | 30D9
++00E6  000974  PEA        -$000A(A6)                               | 486E FFF6
++00EA  000978  PEA        $000C(A6)                                | 486E 000C
++00EE  00097C  JSR        XFERSIGN            ; 000005C2           | 4EBA FC44
++00F2  000980  ADDQ.L     #$8,A7                                   | 508F
++00F4  000982  MOVEA.L    $0008(A6),A0                             | 206E 0008
++00F8  000986  LEA        -$000A(A6),A1                            | 43EE FFF6
++00FC  00098A  MOVE.L     (A1)+,(A0)+                              | 20D9
++00FE  00098C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0100  00098E  MOVE.W     (A1)+,(A0)+                              | 30D9
++0102  000990  UNLK       A6                                       | 4E5E
++0104  000992  RTS                                                 | 4E75
++0106  000994  DC.B       'ATAN2   '                               | 4154 414E 3220 2020
+COS
++0000  00099C  LINK       A6,#$0000                                | 4E56 0000
++0004  0009A0  PEA        $000C(A6)                                | 486E 000C
++0008  0009A4  MOVE.W     #$001A,-(A7)                             | 3F3C 001A
++000C  0009A8  _Elems68K                      ; A9EC               | A9EC
++000E  0009AA  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0012  0009AE  LEA        $000C(A6),A1                             | 43EE 000C
++0016  0009B2  MOVE.L     (A1)+,(A0)+                              | 20D9
++0018  0009B4  MOVE.L     (A1)+,(A0)+                              | 20D9
++001A  0009B6  MOVE.W     (A1)+,(A0)+                              | 30D9
++001C  0009B8  UNLK       A6                                       | 4E5E
++001E  0009BA  RTS                                                 | 4E75
++0020  0009BC  DC.B       'COS     '                               | 434F 5320 2020 2020
+SIN
++0000  0009C4  LINK       A6,#$0000                                | 4E56 0000
++0004  0009C8  PEA        $000C(A6)                                | 486E 000C
++0008  0009CC  MOVE.W     #$0018,-(A7)                             | 3F3C 0018
++000C  0009D0  _Elems68K                      ; A9EC               | A9EC
++000E  0009D2  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0012  0009D6  LEA        $000C(A6),A1                             | 43EE 000C
++0016  0009DA  MOVE.L     (A1)+,(A0)+                              | 20D9
++0018  0009DC  MOVE.L     (A1)+,(A0)+                              | 20D9
++001A  0009DE  MOVE.W     (A1)+,(A0)+                              | 30D9
++001C  0009E0  UNLK       A6                                       | 4E5E
++001E  0009E2  RTS                                                 | 4E75
++0020  0009E4  DC.B       'SIN     '                               | 5349 4E20 2020 2020
+TAN
++0000  0009EC  LINK       A6,#$0000                                | 4E56 0000
++0004  0009F0  PEA        -$0002(A5)                               | 486D FFFE
++0008  0009F4  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++000C  0009F8  _FP68K                         ; A9EB               | A9EB
++000E  0009FA  PEA        $000C(A6)                                | 486E 000C
++0012  0009FE  MOVE.W     #$001C,-(A7)                             | 3F3C 001C
++0016  000A02  _Elems68K                      ; A9EC               | A9EC
++0018  000A04  PEA        -$0002(A5)                               | 486D FFFE
++001C  000A08  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++0020  000A0C  _FP68K                         ; A9EB               | A9EB
++0022  000A0E  MOVE.W     #$0F00,D0                                | 303C 0F00
++0026  000A12  AND.W      -$0002(A5),D0                            | C06D FFFE
++002A  000A16  TST.W      D0                                       | 4A40
++002C  000A18  BEQ.S      TAN+$0042           ; 00000A2E           | 6714
++002E  000A1A  MOVEQ      #$22,D0             ; '"'                | 7022
++0030  000A1C  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++0034  000A20  LEA        $000C(A6),A0                             | 41EE 000C
++0038  000A24  LEA        -$007A(A5),A1                            | 43ED FF86
++003C  000A28  MOVE.L     (A1)+,(A0)+                              | 20D9
++003E  000A2A  MOVE.L     (A1)+,(A0)+                              | 20D9
++0040  000A2C  MOVE.W     (A1)+,(A0)+                              | 30D9
++0042  000A2E  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0046  000A32  LEA        $000C(A6),A1                             | 43EE 000C
++004A  000A36  MOVE.L     (A1)+,(A0)+                              | 20D9
++004C  000A38  MOVE.L     (A1)+,(A0)+                              | 20D9
++004E  000A3A  MOVE.W     (A1)+,(A0)+                              | 30D9
++0050  000A3C  UNLK       A6                                       | 4E5E
++0052  000A3E  RTS                                                 | 4E75
++0054  000A40  DC.B       'TAN     '                               | 5441 4E20 2020 2020
+COSH
++0000  000A48  LINK       A6,#$FFEC                                | 4E56 FFEC
++0004  000A4C  PEA        -$0002(A5)                               | 486D FFFE
++0008  000A50  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++000C  000A54  _FP68K                         ; A9EB               | A9EB
++000E  000A56  LEA        $0016(A6),A0                             | 41EE 0016
++0012  000A5A  MOVE.L     -(A0),-(A7)                              | 2F20
++0014  000A5C  MOVE.L     -(A0),-(A7)                              | 2F20
++0016  000A5E  MOVE.W     -(A0),-(A7)                              | 3F20
++0018  000A60  PEA        -$000A(A6)                               | 486E FFF6
++001C  000A64  JSR        FABS                ; 0000126C           | 4EBA 0806
++0020  000A68  LEA        $000E(A7),A7                             | 4FEF 000E
++0024  000A6C  LEA        (A6),A0                                  | 41D6
++0026  000A6E  MOVE.L     -(A0),-(A7)                              | 2F20
++0028  000A70  MOVE.L     -(A0),-(A7)                              | 2F20
++002A  000A72  MOVE.W     -(A0),-(A7)                              | 3F20
++002C  000A74  PEA        -$0014(A6)                               | 486E FFEC
++0030  000A78  JSR        EXP                 ; 00000CB0           | 4EBA 0236
++0034  000A7C  LEA        $000E(A7),A7                             | 4FEF 000E
++0038  000A80  PEA        -$002A(A5)                               | 486D FFD6
++003C  000A84  PEA        -$0014(A6)                               | 486E FFEC
++0040  000A88  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++0044  000A8C  _FP68K                         ; A9EB               | A9EB
++0046  000A8E  LEA        $000C(A6),A0                             | 41EE 000C
++004A  000A92  LEA        -$0014(A6),A1                            | 43EE FFEC
++004E  000A96  MOVE.L     (A1)+,(A0)+                              | 20D9
++0050  000A98  MOVE.L     (A1)+,(A0)+                              | 20D9
++0052  000A9A  MOVE.W     (A1)+,(A0)+                              | 30D9
++0054  000A9C  MOVE.L     -$0020(A5),-$000A(A6)                    | 2D6D FFE0 FFF6
++005A  000AA2  MOVE.L     -$001C(A5),-$0006(A6)                    | 2D6D FFE4 FFFA
++0060  000AA8  MOVE.W     -$0018(A5),-$0002(A6)                    | 3D6D FFE8 FFFE
++0066  000AAE  PEA        $000C(A6)                                | 486E 000C
++006A  000AB2  PEA        -$000A(A6)                               | 486E FFF6
++006E  000AB6  MOVE.W     #$0006,-(A7)                             | 3F3C 0006
++0072  000ABA  _FP68K                         ; A9EB               | A9EB
++0074  000ABC  PEA        -$000A(A6)                               | 486E FFF6
++0078  000AC0  PEA        $000C(A6)                                | 486E 000C
++007C  000AC4  MOVE.W     #$0000,-(A7)                             | 3F3C 0000
++0080  000AC8  _FP68K                         ; A9EB               | A9EB
++0082  000ACA  PEA        -$0002(A5)                               | 486D FFFE
++0086  000ACE  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++008A  000AD2  _FP68K                         ; A9EB               | A9EB
++008C  000AD4  MOVE.W     #$0F00,D0                                | 303C 0F00
++0090  000AD8  AND.W      -$0002(A5),D0                            | C06D FFFE
++0094  000ADC  TST.W      D0                                       | 4A40
++0096  000ADE  BEQ.S      COSH+$00AC          ; 00000AF4           | 6714
++0098  000AE0  MOVEQ      #$22,D0             ; '"'                | 7022
++009A  000AE2  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++009E  000AE6  LEA        $000C(A6),A0                             | 41EE 000C
++00A2  000AEA  LEA        -$007A(A5),A1                            | 43ED FF86
++00A6  000AEE  MOVE.L     (A1)+,(A0)+                              | 20D9
++00A8  000AF0  MOVE.L     (A1)+,(A0)+                              | 20D9
++00AA  000AF2  MOVE.W     (A1)+,(A0)+                              | 30D9
++00AC  000AF4  MOVEA.L    $0008(A6),A0                             | 206E 0008
++00B0  000AF8  LEA        $000C(A6),A1                             | 43EE 000C
++00B4  000AFC  MOVE.L     (A1)+,(A0)+                              | 20D9
++00B6  000AFE  MOVE.L     (A1)+,(A0)+                              | 20D9
++00B8  000B00  MOVE.W     (A1)+,(A0)+                              | 30D9
++00BA  000B02  UNLK       A6                                       | 4E5E
++00BC  000B04  RTS                                                 | 4E75
++00BE  000B06  DC.B       'COSH    '                               | 434F 5348 2020 2020
+SINH
++0000  000B0E  LINK       A6,#$FFE2                                | 4E56 FFE2
++0004  000B12  LEA        $0016(A6),A0                             | 41EE 0016
++0008  000B16  MOVE.L     -(A0),-(A7)                              | 2F20
++000A  000B18  MOVE.L     -(A0),-(A7)                              | 2F20
++000C  000B1A  MOVE.W     -(A0),-(A7)                              | 3F20
++000E  000B1C  PEA        -$0014(A6)                               | 486E FFEC
++0012  000B20  JSR        FABS                ; 0000126C           | 4EBA 074A
++0016  000B24  LEA        $000E(A7),A7                             | 4FEF 000E
++001A  000B28  LEA        -$000A(A6),A0                            | 41EE FFF6
++001E  000B2C  LEA        -$0014(A6),A1                            | 43EE FFEC
++0022  000B30  MOVE.L     (A1)+,(A0)+                              | 20D9
++0024  000B32  MOVE.L     (A1)+,(A0)+                              | 20D9
++0026  000B34  MOVE.W     (A1)+,(A0)+                              | 30D9
++0028  000B36  PEA        -$0066(A5)                               | 486D FF9A
++002C  000B3A  PEA        -$000A(A6)                               | 486E FFF6
++0030  000B3E  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++0034  000B42  _FP68K                         ; A9EB               | A9EB
++0036  000B44  BLE        SINH+$00D4          ; 00000BE2           | 6F00 009C
++003A  000B48  PEA        -$0002(A5)                               | 486D FFFE
++003E  000B4C  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++0042  000B50  _FP68K                         ; A9EB               | A9EB
++0044  000B52  PEA        -$000A(A6)                               | 486E FFF6
++0048  000B56  MOVE.W     #$000C,-(A7)                             | 3F3C 000C
++004C  000B5A  _Elems68K                      ; A9EC               | A9EC
++004E  000B5C  MOVE.L     -$000A(A6),-$0014(A6)                    | 2D6E FFF6 FFEC
++0054  000B62  MOVE.L     -$0006(A6),-$0010(A6)                    | 2D6E FFFA FFF0
++005A  000B68  MOVE.W     -$0002(A6),-$000C(A6)                    | 3D6E FFFE FFF4
++0060  000B6E  PEA        -$0052(A5)                               | 486D FFAE
++0064  000B72  PEA        -$0014(A6)                               | 486E FFEC
++0068  000B76  MOVE.W     #$0000,-(A7)                             | 3F3C 0000
++006C  000B7A  _FP68K                         ; A9EB               | A9EB
++006E  000B7C  MOVE.L     -$000A(A6),-$001E(A6)                    | 2D6E FFF6 FFE2
++0074  000B82  MOVE.L     -$0006(A6),-$001A(A6)                    | 2D6E FFFA FFE6
++007A  000B88  MOVE.W     -$0002(A6),-$0016(A6)                    | 3D6E FFFE FFEA
++0080  000B8E  PEA        -$0014(A6)                               | 486E FFEC
++0084  000B92  PEA        -$001E(A6)                               | 486E FFE2
++0088  000B96  MOVE.W     #$0006,-(A7)                             | 3F3C 0006
++008C  000B9A  _FP68K                         ; A9EB               | A9EB
++008E  000B9C  PEA        -$001E(A6)                               | 486E FFE2
++0092  000BA0  PEA        -$000A(A6)                               | 486E FFF6
++0096  000BA4  MOVE.W     #$0000,-(A7)                             | 3F3C 0000
++009A  000BA8  _FP68K                         ; A9EB               | A9EB
++009C  000BAA  PEA        -$002A(A5)                               | 486D FFD6
++00A0  000BAE  PEA        -$000A(A6)                               | 486E FFF6
++00A4  000BB2  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++00A8  000BB6  _FP68K                         ; A9EB               | A9EB
++00AA  000BB8  PEA        -$0002(A5)                               | 486D FFFE
++00AE  000BBC  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++00B2  000BC0  _FP68K                         ; A9EB               | A9EB
++00B4  000BC2  MOVE.W     #$0F00,D0                                | 303C 0F00
++00B8  000BC6  AND.W      -$0002(A5),D0                            | C06D FFFE
++00BC  000BCA  TST.W      D0                                       | 4A40
++00BE  000BCC  BEQ.S      SINH+$00D4          ; 00000BE2           | 6714
++00C0  000BCE  MOVEQ      #$22,D0             ; '"'                | 7022
++00C2  000BD0  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++00C6  000BD4  LEA        -$000A(A6),A0                            | 41EE FFF6
++00CA  000BD8  LEA        -$007A(A5),A1                            | 43ED FF86
++00CE  000BDC  MOVE.L     (A1)+,(A0)+                              | 20D9
++00D0  000BDE  MOVE.L     (A1)+,(A0)+                              | 20D9
++00D2  000BE0  MOVE.W     (A1)+,(A0)+                              | 30D9
++00D4  000BE2  PEA        -$000A(A6)                               | 486E FFF6
++00D8  000BE6  PEA        $000C(A6)                                | 486E 000C
++00DC  000BEA  JSR        XFERSIGN            ; 000005C2           | 4EBA F9D6
++00E0  000BEE  ADDQ.L     #$8,A7                                   | 508F
++00E2  000BF0  MOVEA.L    $0008(A6),A0                             | 206E 0008
++00E6  000BF4  LEA        -$000A(A6),A1                            | 43EE FFF6
++00EA  000BF8  MOVE.L     (A1)+,(A0)+                              | 20D9
++00EC  000BFA  MOVE.L     (A1)+,(A0)+                              | 20D9
++00EE  000BFC  MOVE.W     (A1)+,(A0)+                              | 30D9
++00F0  000BFE  UNLK       A6                                       | 4E5E
++00F2  000C00  RTS                                                 | 4E75
++00F4  000C02  DC.B       'SINH    '                               | 5349 4E48 2020 2020
+TANH
++0000  000C0A  LINK       A6,#$FFEC                                | 4E56 FFEC
++0004  000C0E  LEA        $0016(A6),A0                             | 41EE 0016
++0008  000C12  MOVE.L     -(A0),-(A7)                              | 2F20
++000A  000C14  MOVE.L     -(A0),-(A7)                              | 2F20
++000C  000C16  MOVE.W     -(A0),-(A7)                              | 3F20
++000E  000C18  PEA        -$0014(A6)                               | 486E FFEC
++0012  000C1C  JSR        FABS                ; 0000126C           | 4EBA 064E
++0016  000C20  LEA        $000E(A7),A7                             | 4FEF 000E
++001A  000C24  LEA        -$000A(A6),A0                            | 41EE FFF6
++001E  000C28  LEA        -$0014(A6),A1                            | 43EE FFEC
++0022  000C2C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0024  000C2E  MOVE.L     (A1)+,(A0)+                              | 20D9
++0026  000C30  MOVE.W     (A1)+,(A0)+                              | 30D9
++0028  000C32  PEA        -$0066(A5)                               | 486D FF9A
++002C  000C36  PEA        -$000A(A6)                               | 486E FFF6
++0030  000C3A  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++0034  000C3E  _FP68K                         ; A9EB               | A9EB
++0036  000C40  BLE.S      TANH+$007E          ; 00000C88           | 6F46
++0038  000C42  PEA        -$0034(A5)                               | 486D FFCC
++003C  000C46  PEA        -$000A(A6)                               | 486E FFF6
++0040  000C4A  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++0044  000C4E  _FP68K                         ; A9EB               | A9EB
++0046  000C50  PEA        -$000A(A6)                               | 486E FFF6
++004A  000C54  MOVE.W     #$000C,-(A7)                             | 3F3C 000C
++004E  000C58  _Elems68K                      ; A9EC               | A9EC
++0050  000C5A  MOVE.L     -$000A(A6),-$0014(A6)                    | 2D6E FFF6 FFEC
++0056  000C60  MOVE.L     -$0006(A6),-$0010(A6)                    | 2D6E FFFA FFF0
++005C  000C66  MOVE.W     -$0002(A6),-$000C(A6)                    | 3D6E FFFE FFF4
++0062  000C6C  PEA        -$0048(A5)                               | 486D FFB8
++0066  000C70  PEA        -$0014(A6)                               | 486E FFEC
++006A  000C74  MOVE.W     #$0000,-(A7)                             | 3F3C 0000
++006E  000C78  _FP68K                         ; A9EB               | A9EB
++0070  000C7A  PEA        -$0014(A6)                               | 486E FFEC
++0074  000C7E  PEA        -$000A(A6)                               | 486E FFF6
++0078  000C82  MOVE.W     #$0006,-(A7)                             | 3F3C 0006
++007C  000C86  _FP68K                         ; A9EB               | A9EB
++007E  000C88  PEA        -$000A(A6)                               | 486E FFF6
++0082  000C8C  PEA        $000C(A6)                                | 486E 000C
++0086  000C90  JSR        XFERSIGN            ; 000005C2           | 4EBA F930
++008A  000C94  ADDQ.L     #$8,A7                                   | 508F
++008C  000C96  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0090  000C9A  LEA        -$000A(A6),A1                            | 43EE FFF6
++0094  000C9E  MOVE.L     (A1)+,(A0)+                              | 20D9
++0096  000CA0  MOVE.L     (A1)+,(A0)+                              | 20D9
++0098  000CA2  MOVE.W     (A1)+,(A0)+                              | 30D9
++009A  000CA4  UNLK       A6                                       | 4E5E
++009C  000CA6  RTS                                                 | 4E75
++009E  000CA8  DC.B       'TANH    '                               | 5441 4E48 2020 2020
+EXP
++0000  000CB0  LINK       A6,#$0000                                | 4E56 0000
++0004  000CB4  PEA        -$0002(A5)                               | 486D FFFE
++0008  000CB8  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++000C  000CBC  _FP68K                         ; A9EB               | A9EB
++000E  000CBE  PEA        $000C(A6)                                | 486E 000C
++0012  000CC2  MOVE.W     #$0008,-(A7)                             | 3F3C 0008
++0016  000CC6  _Elems68K                      ; A9EC               | A9EC
++0018  000CC8  PEA        -$0002(A5)                               | 486D FFFE
++001C  000CCC  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++0020  000CD0  _FP68K                         ; A9EB               | A9EB
++0022  000CD2  MOVE.W     #$0F00,D0                                | 303C 0F00
++0026  000CD6  AND.W      -$0002(A5),D0                            | C06D FFFE
++002A  000CDA  TST.W      D0                                       | 4A40
++002C  000CDC  BEQ.S      EXP+$0042           ; 00000CF2           | 6714
++002E  000CDE  MOVEQ      #$22,D0             ; '"'                | 7022
++0030  000CE0  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++0034  000CE4  LEA        $000C(A6),A0                             | 41EE 000C
++0038  000CE8  LEA        -$007A(A5),A1                            | 43ED FF86
++003C  000CEC  MOVE.L     (A1)+,(A0)+                              | 20D9
++003E  000CEE  MOVE.L     (A1)+,(A0)+                              | 20D9
++0040  000CF0  MOVE.W     (A1)+,(A0)+                              | 30D9
++0042  000CF2  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0046  000CF6  LEA        $000C(A6),A1                             | 43EE 000C
++004A  000CFA  MOVE.L     (A1)+,(A0)+                              | 20D9
++004C  000CFC  MOVE.L     (A1)+,(A0)+                              | 20D9
++004E  000CFE  MOVE.W     (A1)+,(A0)+                              | 30D9
++0050  000D00  UNLK       A6                                       | 4E5E
++0052  000D02  RTS                                                 | 4E75
++0054  000D04  DC.B       'EXP     '                               | 4558 5020 2020 2020
+FREXP
++0000  000D0C  LINK       A6,#$FFE2                                | 4E56 FFE2
++0004  000D10  MOVE.L     A4,-(A7)                                 | 2F0C
++0006  000D12  MOVEA.L    $0016(A6),A4                             | 286E 0016
++000A  000D16  LEA        $0016(A6),A0                             | 41EE 0016
++000E  000D1A  MOVE.L     -(A0),-(A7)                              | 2F20
++0010  000D1C  MOVE.L     -(A0),-(A7)                              | 2F20
++0012  000D1E  MOVE.W     -(A0),-(A7)                              | 3F20
++0014  000D20  PEA        -$0014(A6)                               | 486E FFEC
++0018  000D24  JSR        FABS                ; 0000126C           | 4EBA 0546
++001C  000D28  LEA        $000E(A7),A7                             | 4FEF 000E
++0020  000D2C  LEA        -$000A(A6),A0                            | 41EE FFF6
++0024  000D30  LEA        -$0014(A6),A1                            | 43EE FFEC
++0028  000D34  MOVE.L     (A1)+,(A0)+                              | 20D9
++002A  000D36  MOVE.L     (A1)+,(A0)+                              | 20D9
++002C  000D38  MOVE.W     (A1)+,(A0)+                              | 30D9
++002E  000D3A  LEA        -$0014(A6),A0                            | 41EE FFEC
++0032  000D3E  LEA        -$0048(A5),A1                            | 43ED FFB8
++0036  000D42  MOVE.L     (A1)+,(A0)+                              | 20D9
++0038  000D44  MOVE.L     (A1)+,(A0)+                              | 20D9
++003A  000D46  MOVE.W     (A1)+,(A0)+                              | 30D9
++003C  000D48  MOVE.W     #$0000,-$0016(A6)                        | 3D7C 0000 FFEA
++0042  000D4E  PEA        -$0016(A6)                               | 486E FFEA
++0046  000D52  PEA        -$000A(A6)                               | 486E FFF6
++004A  000D56  MOVE.W     #$2008,-(A7)                             | 3F3C 2008
++004E  000D5A  _FP68K                         ; A9EB               | A9EB
++0050  000D5C  BNE.S      FREXP+$0066         ; 00000D72           | 6614
++0052  000D5E  CLR.W      (A4)                                     | 4254
++0054  000D60  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0058  000D64  LEA        -$005C(A5),A1                            | 43ED FFA4
++005C  000D68  MOVE.L     (A1)+,(A0)+                              | 20D9
++005E  000D6A  MOVE.L     (A1)+,(A0)+                              | 20D9
++0060  000D6C  MOVE.W     (A1)+,(A0)+                              | 30D9
++0062  000D6E  BRA        FREXP+$0110         ; 00000E1C           | 6000 00AC
++0066  000D72  PEA        -$000A(A6)                               | 486E FFF6
++006A  000D76  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++006E  000D7A  _Elems68K                      ; A9EC               | A9EC
++0070  000D7C  MOVE.L     -$000A(A6),-$001E(A6)                    | 2D6E FFF6 FFE2
++0076  000D82  MOVE.L     -$0006(A6),-$001A(A6)                    | 2D6E FFFA FFE6
++007C  000D88  MOVE.W     -$0002(A6),-$0016(A6)                    | 3D6E FFFE FFEA
++0082  000D8E  PEA        -$001E(A6)                               | 486E FFE2
++0086  000D92  MOVE.W     #$0016,-(A7)                             | 3F3C 0016
++008A  000D96  _FP68K                         ; A9EB               | A9EB
++008C  000D98  PEA        -$001E(A6)                               | 486E FFE2
++0090  000D9C  PEA        (A4)                                     | 4854
++0092  000D9E  MOVE.W     #$2010,-(A7)                             | 3F3C 2010
++0096  000DA2  _FP68K                         ; A9EB               | A9EB
++0098  000DA4  PEA        (A4)                                     | 4854
++009A  000DA6  PEA        -$000A(A6)                               | 486E FFF6
++009E  000DAA  MOVE.W     #$2002,-(A7)                             | 3F3C 2002
++00A2  000DAE  _FP68K                         ; A9EB               | A9EB
++00A4  000DB0  PEA        -$000A(A6)                               | 486E FFF6
++00A8  000DB4  PEA        -$0014(A6)                               | 486E FFEC
++00AC  000DB8  MOVE.W     #$8012,-(A7)                             | 3F3C 8012
++00B0  000DBC  _Elems68K                      ; A9EC               | A9EC
++00B2  000DBE  PEA        -$0052(A5)                               | 486D FFAE
++00B6  000DC2  PEA        -$0014(A6)                               | 486E FFEC
++00BA  000DC6  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++00BE  000DCA  _FP68K                         ; A9EB               | A9EB
++00C0  000DCC  BLT.S      FREXP+$00D4         ; 00000DE0           | 6D12
++00C2  000DCE  PEA        -$002A(A5)                               | 486D FFD6
++00C6  000DD2  PEA        -$0014(A6)                               | 486E FFEC
++00CA  000DD6  MOVE.W     #$0004,-(A7)                             | 3F3C 0004
++00CE  000DDA  _FP68K                         ; A9EB               | A9EB
++00D0  000DDC  ADDQ.W     #$1,(A4)                                 | 5254
++00D2  000DDE  BRA.S      FREXP+$00F4         ; 00000E00           | 6020
++00D4  000DE0  PEA        -$002A(A5)                               | 486D FFD6
++00D8  000DE4  PEA        -$0014(A6)                               | 486E FFEC
++00DC  000DE8  MOVE.W     #$000A,-(A7)                             | 3F3C 000A
++00E0  000DEC  _FP68K                         ; A9EB               | A9EB
++00E2  000DEE  BGE.S      FREXP+$00F4         ; 00000E00           | 6C10
++00E4  000DF0  PEA        -$0014(A6)                               | 486E FFEC
++00E8  000DF4  PEA        -$0014(A6)                               | 486E FFEC
++00EC  000DF8  MOVE.W     #$0000,-(A7)                             | 3F3C 0000
++00F0  000DFC  _FP68K                         ; A9EB               | A9EB
++00F2  000DFE  SUBQ.W     #$1,(A4)                                 | 5354
++00F4  000E00  PEA        -$0014(A6)                               | 486E FFEC
++00F8  000E04  PEA        $000C(A6)                                | 486E 000C
++00FC  000E08  JSR        XFERSIGN            ; 000005C2           | 4EBA F7B8
++0100  000E0C  ADDQ.L     #$8,A7                                   | 508F
++0102  000E0E  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0106  000E12  LEA        -$0014(A6),A1                            | 43EE FFEC
++010A  000E16  MOVE.L     (A1)+,(A0)+                              | 20D9
++010C  000E18  MOVE.L     (A1)+,(A0)+                              | 20D9
++010E  000E1A  MOVE.W     (A1)+,(A0)+                              | 30D9
++0110  000E1C  MOVEA.L    (A7)+,A4                                 | 285F
++0112  000E1E  UNLK       A6                                       | 4E5E
++0114  000E20  RTS                                                 | 4E75
++0116  000E22  DC.B       'FREXP   '                               | 4652 4558 5020 2020
+LDEXP
++0000  000E2A  LINK       A6,#$0000                                | 4E56 0000
++0004  000E2E  PEA        -$0002(A5)                               | 486D FFFE
++0008  000E32  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++000C  000E36  _FP68K                         ; A9EB               | A9EB
++000E  000E38  PEA        $0016(A6)                                | 486E 0016
++0012  000E3C  PEA        $000C(A6)                                | 486E 000C
++0016  000E40  MOVE.W     #$0018,-(A7)                             | 3F3C 0018
++001A  000E44  _FP68K                         ; A9EB               | A9EB
++001C  000E46  PEA        -$0002(A5)                               | 486D FFFE
++0020  000E4A  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++0024  000E4E  _FP68K                         ; A9EB               | A9EB
++0026  000E50  MOVE.W     #$0F00,D0                                | 303C 0F00
++002A  000E54  AND.W      -$0002(A5),D0                            | C06D FFFE
++002E  000E58  TST.W      D0                                       | 4A40
++0030  000E5A  BEQ.S      LDEXP+$0046         ; 00000E70           | 6714
++0032  000E5C  MOVEQ      #$22,D0             ; '"'                | 7022
++0034  000E5E  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++0038  000E62  LEA        $000C(A6),A0                             | 41EE 000C
++003C  000E66  LEA        -$007A(A5),A1                            | 43ED FF86
++0040  000E6A  MOVE.L     (A1)+,(A0)+                              | 20D9
++0042  000E6C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0044  000E6E  MOVE.W     (A1)+,(A0)+                              | 30D9
++0046  000E70  MOVEA.L    $0008(A6),A0                             | 206E 0008
++004A  000E74  LEA        $000C(A6),A1                             | 43EE 000C
++004E  000E78  MOVE.L     (A1)+,(A0)+                              | 20D9
++0050  000E7A  MOVE.L     (A1)+,(A0)+                              | 20D9
++0052  000E7C  MOVE.W     (A1)+,(A0)+                              | 30D9
++0054  000E7E  UNLK       A6                                       | 4E5E
++0056  000E80  RTS                                                 | 4E75
++0058  000E82  DC.B       'LDEXP   '                               | 4C44 4558 5020 2020
+LOG
++0000  000E8A  LINK       A6,#$FFFE                                | 4E56 FFFE
++0004  000E8E  MOVE.W     #$0000,-$0002(A6)                        | 3D7C 0000 FFFE
++000A  000E94  PEA        -$0002(A6)                               | 486E FFFE
++000E  000E98  PEA        $000C(A6)                                | 486E 000C
++0012  000E9C  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++0016  000EA0  _FP68K                         ; A9EB               | A9EB
++0018  000EA2  BGE.S      LOG+$0030           ; 00000EBA           | 6C16
++001A  000EA4  MOVEQ      #$21,D0             ; '!'                | 7021
++001C  000EA6  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++0020  000EAA  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0024  000EAE  LEA        -$0070(A5),A1                            | 43ED FF90
++0028  000EB2  MOVE.L     (A1)+,(A0)+                              | 20D9
++002A  000EB4  MOVE.L     (A1)+,(A0)+                              | 20D9
++002C  000EB6  MOVE.W     (A1)+,(A0)+                              | 30D9
++002E  000EB8  BRA.S      LOG+$007A           ; 00000F04           | 604A
++0030  000EBA  PEA        -$0002(A5)                               | 486D FFFE
++0034  000EBE  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++0038  000EC2  _FP68K                         ; A9EB               | A9EB
++003A  000EC4  PEA        $000C(A6)                                | 486E 000C
++003E  000EC8  CLR.W      -(A7)                                    | 4267
++0040  000ECA  _Elems68K                      ; A9EC               | A9EC
++0042  000ECC  PEA        -$0002(A5)                               | 486D FFFE
++0046  000ED0  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++004A  000ED4  _FP68K                         ; A9EB               | A9EB
++004C  000ED6  MOVE.W     #$0F00,D0                                | 303C 0F00
++0050  000EDA  AND.W      -$0002(A5),D0                            | C06D FFFE
++0054  000EDE  TST.W      D0                                       | 4A40
++0056  000EE0  BEQ.S      LOG+$006C           ; 00000EF6           | 6714
++0058  000EE2  MOVEQ      #$22,D0             ; '"'                | 7022
++005A  000EE4  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++005E  000EE8  LEA        $000C(A6),A0                             | 41EE 000C
++0062  000EEC  LEA        -$0070(A5),A1                            | 43ED FF90
++0066  000EF0  MOVE.L     (A1)+,(A0)+                              | 20D9
++0068  000EF2  MOVE.L     (A1)+,(A0)+                              | 20D9
++006A  000EF4  MOVE.W     (A1)+,(A0)+                              | 30D9
++006C  000EF6  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0070  000EFA  LEA        $000C(A6),A1                             | 43EE 000C
++0074  000EFE  MOVE.L     (A1)+,(A0)+                              | 20D9
++0076  000F00  MOVE.L     (A1)+,(A0)+                              | 20D9
++0078  000F02  MOVE.W     (A1)+,(A0)+                              | 30D9
++007A  000F04  UNLK       A6                                       | 4E5E
++007C  000F06  RTS                                                 | 4E75
++007E  000F08  DC.B       'LOG     '                               | 4C4F 4720 2020 2020
+LOG10
++0000  000F10  LINK       A6,#$FFFE                                | 4E56 FFFE
++0004  000F14  MOVE.W     #$0000,-$0002(A6)                        | 3D7C 0000 FFFE
++000A  000F1A  PEA        -$0002(A6)                               | 486E FFFE
++000E  000F1E  PEA        $000C(A6)                                | 486E 000C
++0012  000F22  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++0016  000F26  _FP68K                         ; A9EB               | A9EB
++0018  000F28  BGE.S      LOG10+$0030         ; 00000F40           | 6C16
++001A  000F2A  MOVEQ      #$21,D0             ; '!'                | 7021
++001C  000F2C  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++0020  000F30  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0024  000F34  LEA        -$0070(A5),A1                            | 43ED FF90
++0028  000F38  MOVE.L     (A1)+,(A0)+                              | 20D9
++002A  000F3A  MOVE.L     (A1)+,(A0)+                              | 20D9
++002C  000F3C  MOVE.W     (A1)+,(A0)+                              | 30D9
++002E  000F3E  BRA.S      LOG10+$008A         ; 00000F9A           | 605A
++0030  000F40  PEA        -$0002(A5)                               | 486D FFFE
++0034  000F44  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++0038  000F48  _FP68K                         ; A9EB               | A9EB
++003A  000F4A  PEA        $000C(A6)                                | 486E 000C
++003E  000F4E  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++0042  000F52  _Elems68K                      ; A9EC               | A9EC
++0044  000F54  PEA        -$000C(A5)                               | 486D FFF4
++0048  000F58  PEA        $000C(A6)                                | 486E 000C
++004C  000F5C  MOVE.W     #$0006,-(A7)                             | 3F3C 0006
++0050  000F60  _FP68K                         ; A9EB               | A9EB
++0052  000F62  PEA        -$0002(A5)                               | 486D FFFE
++0056  000F66  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++005A  000F6A  _FP68K                         ; A9EB               | A9EB
++005C  000F6C  MOVE.W     #$0F00,D0                                | 303C 0F00
++0060  000F70  AND.W      -$0002(A5),D0                            | C06D FFFE
++0064  000F74  TST.W      D0                                       | 4A40
++0066  000F76  BEQ.S      LOG10+$007C         ; 00000F8C           | 6714
++0068  000F78  MOVEQ      #$22,D0             ; '"'                | 7022
++006A  000F7A  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++006E  000F7E  LEA        $000C(A6),A0                             | 41EE 000C
++0072  000F82  LEA        -$0070(A5),A1                            | 43ED FF90
++0076  000F86  MOVE.L     (A1)+,(A0)+                              | 20D9
++0078  000F88  MOVE.L     (A1)+,(A0)+                              | 20D9
++007A  000F8A  MOVE.W     (A1)+,(A0)+                              | 30D9
++007C  000F8C  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0080  000F90  LEA        $000C(A6),A1                             | 43EE 000C
++0084  000F94  MOVE.L     (A1)+,(A0)+                              | 20D9
++0086  000F96  MOVE.L     (A1)+,(A0)+                              | 20D9
++0088  000F98  MOVE.W     (A1)+,(A0)+                              | 30D9
++008A  000F9A  UNLK       A6                                       | 4E5E
++008C  000F9C  RTS                                                 | 4E75
++008E  000F9E  DC.B       'LOG10   '                               | 4C4F 4731 3020 2020
+MODF
++0000  000FA6  LINK       A6,#$FFF6                                | 4E56 FFF6
++0004  000FAA  MOVE.L     A4,-(A7)                                 | 2F0C
++0006  000FAC  MOVEA.L    $0016(A6),A4                             | 286E 0016
++000A  000FB0  LEA        (A4),A0                                  | 41D4
++000C  000FB2  LEA        $000C(A6),A1                             | 43EE 000C
++0010  000FB6  MOVE.L     (A1)+,(A0)+                              | 20D9
++0012  000FB8  MOVE.L     (A1)+,(A0)+                              | 20D9
++0014  000FBA  MOVE.W     (A1)+,(A0)+                              | 30D9
++0016  000FBC  MOVE.L     A4,-(A7)                                 | 2F0C
++0018  000FBE  MOVE.W     #$0016,-(A7)                             | 3F3C 0016
++001C  000FC2  _FP68K                         ; A9EB               | A9EB
++001E  000FC4  MOVE.L     $000C(A6),-$000A(A6)                     | 2D6E 000C FFF6
++0024  000FCA  MOVE.L     $0010(A6),-$0006(A6)                     | 2D6E 0010 FFFA
++002A  000FD0  MOVE.W     $0014(A6),-$0002(A6)                     | 3D6E 0014 FFFE
++0030  000FD6  PEA        (A4)                                     | 4854
++0032  000FD8  PEA        -$000A(A6)                               | 486E FFF6
++0036  000FDC  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++003A  000FE0  _FP68K                         ; A9EB               | A9EB
++003C  000FE2  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0040  000FE6  LEA        -$000A(A6),A1                            | 43EE FFF6
++0044  000FEA  MOVE.L     (A1)+,(A0)+                              | 20D9
++0046  000FEC  MOVE.L     (A1)+,(A0)+                              | 20D9
++0048  000FEE  MOVE.W     (A1)+,(A0)+                              | 30D9
++004A  000FF0  MOVEA.L    (A7)+,A4                                 | 285F
++004C  000FF2  UNLK       A6                                       | 4E5E
++004E  000FF4  RTS                                                 | 4E75
++0050  000FF6  DC.B       'MODF    '                               | 4D4F 4446 2020 2020
+POW
++0000  000FFE  LINK       A6,#$FFE8                                | 4E56 FFE8
++0004  001002  CLR.W      -$0002(A6)                               | 426E FFFE
++0008  001006  MOVE.W     #$0000,-$000E(A6)                        | 3D7C 0000 FFF2
++000E  00100C  PEA        -$000E(A6)                               | 486E FFF2
++0012  001010  PEA        $000C(A6)                                | 486E 000C
++0016  001014  MOVE.W     #$2008,-(A7)                             | 3F3C 2008
++001A  001018  _FP68K                         ; A9EB               | A9EB
++001C  00101A  BNE.S      POW+$005E           ; 0000105C           | 6640
++001E  00101C  MOVE.W     #$0000,-$000E(A6)                        | 3D7C 0000 FFF2
++0024  001022  PEA        -$000E(A6)                               | 486E FFF2
++0028  001026  PEA        $0016(A6)                                | 486E 0016
++002C  00102A  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++0030  00102E  _FP68K                         ; A9EB               | A9EB
++0032  001030  BGT.S      POW+$004C           ; 0000104A           | 6E18
++0034  001032  MOVEQ      #$21,D0             ; '!'                | 7021
++0036  001034  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++003A  001038  MOVEA.L    $0008(A6),A0                             | 206E 0008
++003E  00103C  LEA        -$0070(A5),A1                            | 43ED FF90
++0042  001040  MOVE.L     (A1)+,(A0)+                              | 20D9
++0044  001042  MOVE.L     (A1)+,(A0)+                              | 20D9
++0046  001044  MOVE.W     (A1)+,(A0)+                              | 30D9
++0048  001046  BRA        POW+$01CC           ; 000011CA           | 6000 0182
++004C  00104A  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0050  00104E  LEA        -$005C(A5),A1                            | 43ED FFA4
++0054  001052  MOVE.L     (A1)+,(A0)+                              | 20D9
++0056  001054  MOVE.L     (A1)+,(A0)+                              | 20D9
++0058  001056  MOVE.W     (A1)+,(A0)+                              | 30D9
++005A  001058  BRA        POW+$01CC           ; 000011CA           | 6000 0170
++005E  00105C  MOVE.W     #$0000,-$000E(A6)                        | 3D7C 0000 FFF2
++0064  001062  PEA        -$000E(A6)                               | 486E FFF2
++0068  001066  PEA        $0016(A6)                                | 486E 0016
++006C  00106A  MOVE.W     #$2008,-(A7)                             | 3F3C 2008
++0070  00106E  _FP68K                         ; A9EB               | A9EB
++0072  001070  BNE.S      POW+$0086           ; 00001084           | 6612
++0074  001072  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0078  001076  LEA        -$0052(A5),A1                            | 43ED FFAE
++007C  00107A  MOVE.L     (A1)+,(A0)+                              | 20D9
++007E  00107C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0080  00107E  MOVE.W     (A1)+,(A0)+                              | 30D9
++0082  001080  BRA        POW+$01CC           ; 000011CA           | 6000 0148
++0086  001084  MOVE.W     #$0000,-$000E(A6)                        | 3D7C 0000 FFF2
++008C  00108A  PEA        -$000E(A6)                               | 486E FFF2
++0090  00108E  PEA        $000C(A6)                                | 486E 000C
++0094  001092  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++0098  001096  _FP68K                         ; A9EB               | A9EB
++009A  001098  BGE        POW+$0146           ; 00001144           | 6C00 00AA
++009E  00109C  PEA        $0016(A6)                                | 486E 0016
++00A2  0010A0  LEA        $0020(A6),A0                             | 41EE 0020
++00A6  0010A4  MOVE.L     -(A0),-(A7)                              | 2F20
++00A8  0010A6  MOVE.L     -(A0),-(A7)                              | 2F20
++00AA  0010A8  MOVE.W     -(A0),-(A7)                              | 3F20
++00AC  0010AA  PEA        -$0016(A6)                               | 486E FFEA
++00B0  0010AE  JSR        MODF                ; 00000FA6           | 4EBA FEF6
++00B4  0010B2  LEA        $0012(A7),A7                             | 4FEF 0012
++00B8  0010B6  PEA        -$0016(A6)                               | 486E FFEA
++00BC  0010BA  PEA        -$0018(A6)                               | 486E FFE8
++00C0  0010BE  MOVE.W     #$001C,-(A7)                             | 3F3C 001C
++00C4  0010C2  _FP68K                         ; A9EB               | A9EB
++00C6  0010C4  SUBQ.W     #$4,-$0018(A6)                           | 596E FFE8
++00CA  0010C8  BEQ.S      POW+$00E4           ; 000010E2           | 6718
++00CC  0010CA  MOVEQ      #$21,D0             ; '!'                | 7021
++00CE  0010CC  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++00D2  0010D0  MOVEA.L    $0008(A6),A0                             | 206E 0008
++00D6  0010D4  LEA        -$0070(A5),A1                            | 43ED FF90
++00DA  0010D8  MOVE.L     (A1)+,(A0)+                              | 20D9
++00DC  0010DA  MOVE.L     (A1)+,(A0)+                              | 20D9
++00DE  0010DC  MOVE.W     (A1)+,(A0)+                              | 30D9
++00E0  0010DE  BRA        POW+$01CC           ; 000011CA           | 6000 00EA
++00E4  0010E2  MOVE.L     $000C(A6),-$0016(A6)                     | 2D6E 000C FFEA
++00EA  0010E8  MOVE.L     $0010(A6),-$0012(A6)                     | 2D6E 0010 FFEE
++00F0  0010EE  MOVE.W     $0014(A6),-$000E(A6)                     | 3D6E 0014 FFF2
++00F6  0010F4  PEA        -$0016(A6)                               | 486E FFEA
++00FA  0010F8  MOVE.W     #$000D,-(A7)                             | 3F3C 000D
++00FE  0010FC  _FP68K                         ; A9EB               | A9EB
++0100  0010FE  LEA        $000C(A6),A0                             | 41EE 000C
++0104  001102  LEA        -$0016(A6),A1                            | 43EE FFEA
++0108  001106  MOVE.L     (A1)+,(A0)+                              | 20D9
++010A  001108  MOVE.L     (A1)+,(A0)+                              | 20D9
++010C  00110A  MOVE.W     (A1)+,(A0)+                              | 30D9
++010E  00110C  LEA        -$003E(A5),A0                            | 41ED FFC2
++0112  001110  MOVE.L     -(A0),-(A7)                              | 2F20
++0114  001112  MOVE.L     -(A0),-(A7)                              | 2F20
++0116  001114  MOVE.W     -(A0),-(A7)                              | 3F20
++0118  001116  LEA        $0020(A6),A0                             | 41EE 0020
++011C  00111A  MOVE.L     -(A0),-(A7)                              | 2F20
++011E  00111C  MOVE.L     -(A0),-(A7)                              | 2F20
++0120  00111E  MOVE.W     -(A0),-(A7)                              | 3F20
++0122  001120  PEA        -$0016(A6)                               | 486E FFEA
++0126  001124  JSR        FMOD                ; 000012D6           | 4EBA 01B0
++012A  001128  LEA        $0018(A7),A7                             | 4FEF 0018
++012E  00112C  PEA        -$0016(A6)                               | 486E FFEA
++0132  001130  MOVE.W     #$0016,-(A7)                             | 3F3C 0016
++0136  001134  _FP68K                         ; A9EB               | A9EB
++0138  001136  PEA        -$0016(A6)                               | 486E FFEA
++013C  00113A  PEA        -$0002(A6)                               | 486E FFFE
++0140  00113E  MOVE.W     #$2010,-(A7)                             | 3F3C 2010
++0144  001142  _FP68K                         ; A9EB               | A9EB
++0146  001144  PEA        -$0002(A5)                               | 486D FFFE
++014A  001148  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++014E  00114C  _FP68K                         ; A9EB               | A9EB
++0150  00114E  PEA        $0016(A6)                                | 486E 0016
++0154  001152  PEA        $000C(A6)                                | 486E 000C
++0158  001156  MOVE.W     #$8012,-(A7)                             | 3F3C 8012
++015C  00115A  _Elems68K                      ; A9EC               | A9EC
++015E  00115C  PEA        -$0002(A5)                               | 486D FFFE
++0162  001160  MOVE.W     #$0003,-(A7)                             | 3F3C 0003
++0166  001164  _FP68K                         ; A9EB               | A9EB
++0168  001166  MOVE.W     #$0F00,D0                                | 303C 0F00
++016C  00116A  AND.W      -$0002(A5),D0                            | C06D FFFE
++0170  00116E  TST.W      D0                                       | 4A40
++0172  001170  BEQ.S      POW+$0188           ; 00001186           | 6714
++0174  001172  MOVEQ      #$22,D0             ; '"'                | 7022
++0176  001174  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++017A  001178  LEA        $000C(A6),A0                             | 41EE 000C
++017E  00117C  LEA        -$007A(A5),A1                            | 43ED FF86
++0182  001180  MOVE.L     (A1)+,(A0)+                              | 20D9
++0184  001182  MOVE.L     (A1)+,(A0)+                              | 20D9
++0186  001184  MOVE.W     (A1)+,(A0)+                              | 30D9
++0188  001186  TST.W      -$0002(A6)                               | 4A6E FFFE
++018C  00118A  BEQ.S      POW+$01AC           ; 000011AA           | 671E
++018E  00118C  MOVE.L     $000C(A6),-$0016(A6)                     | 2D6E 000C FFEA
++0194  001192  MOVE.L     $0010(A6),-$0012(A6)                     | 2D6E 0010 FFEE
++019A  001198  MOVE.W     $0014(A6),-$000E(A6)                     | 3D6E 0014 FFF2
++01A0  00119E  PEA        -$0016(A6)                               | 486E FFEA
++01A4  0011A2  MOVE.W     #$000D,-(A7)                             | 3F3C 000D
++01A8  0011A6  _FP68K                         ; A9EB               | A9EB
++01AA  0011A8  BRA.S      POW+$01BE           ; 000011BC           | 6012
++01AC  0011AA  MOVE.L     $000C(A6),-$0016(A6)                     | 2D6E 000C FFEA
++01B2  0011B0  MOVE.L     $0010(A6),-$0012(A6)                     | 2D6E 0010 FFEE
++01B8  0011B6  MOVE.W     $0014(A6),-$000E(A6)                     | 3D6E 0014 FFF2
++01BE  0011BC  MOVEA.L    $0008(A6),A0                             | 206E 0008
++01C2  0011C0  LEA        -$0016(A6),A1                            | 43EE FFEA
++01C6  0011C4  MOVE.L     (A1)+,(A0)+                              | 20D9
++01C8  0011C6  MOVE.L     (A1)+,(A0)+                              | 20D9
++01CA  0011C8  MOVE.W     (A1)+,(A0)+                              | 30D9
++01CC  0011CA  UNLK       A6                                       | 4E5E
++01CE  0011CC  RTS                                                 | 4E75
++01D0  0011CE  DC.B       'POW     '                               | 504F 5720 2020 2020
+SQRT
++0000  0011D6  LINK       A6,#$FFFE                                | 4E56 FFFE
++0004  0011DA  MOVE.W     #$0000,-$0002(A6)                        | 3D7C 0000 FFFE
++000A  0011E0  PEA        -$0002(A6)                               | 486E FFFE
++000E  0011E4  PEA        $000C(A6)                                | 486E 000C
++0012  0011E8  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++0016  0011EC  _FP68K                         ; A9EB               | A9EB
++0018  0011EE  BGE.S      SQRT+$0030          ; 00001206           | 6C16
++001A  0011F0  MOVEQ      #$21,D0             ; '!'                | 7021
++001C  0011F2  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++0020  0011F6  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0024  0011FA  LEA        -$005C(A5),A1                            | 43ED FFA4
++0028  0011FE  MOVE.L     (A1)+,(A0)+                              | 20D9
++002A  001200  MOVE.L     (A1)+,(A0)+                              | 20D9
++002C  001202  MOVE.W     (A1)+,(A0)+                              | 30D9
++002E  001204  BRA.S      SQRT+$0048          ; 0000121E           | 6018
++0030  001206  PEA        $000C(A6)                                | 486E 000C
++0034  00120A  MOVE.W     #$0012,-(A7)                             | 3F3C 0012
++0038  00120E  _FP68K                         ; A9EB               | A9EB
++003A  001210  MOVEA.L    $0008(A6),A0                             | 206E 0008
++003E  001214  LEA        $000C(A6),A1                             | 43EE 000C
++0042  001218  MOVE.L     (A1)+,(A0)+                              | 20D9
++0044  00121A  MOVE.L     (A1)+,(A0)+                              | 20D9
++0046  00121C  MOVE.W     (A1)+,(A0)+                              | 30D9
++0048  00121E  UNLK       A6                                       | 4E5E
++004A  001220  RTS                                                 | 4E75
++004C  001222  DC.B       'SQRT    '                               | 5351 5254 2020 2020
+CEIL
++0000  00122A  LINK       A6,#$0000                                | 4E56 0000
++0004  00122E  MOVE.W     #$2000,-$0002(A5)                        | 3B7C 2000 FFFE
++000A  001234  PEA        -$0002(A5)                               | 486D FFFE
++000E  001238  MOVE.W     #$0001,-(A7)                             | 3F3C 0001
++0012  00123C  _FP68K                         ; A9EB               | A9EB
++0014  00123E  PEA        $000C(A6)                                | 486E 000C
++0018  001242  MOVE.W     #$0014,-(A7)                             | 3F3C 0014
++001C  001246  _FP68K                         ; A9EB               | A9EB
++001E  001248  PEA        -$0002(A5)                               | 486D FFFE
++0022  00124C  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++0026  001250  _FP68K                         ; A9EB               | A9EB
++0028  001252  MOVEA.L    $0008(A6),A0                             | 206E 0008
++002C  001256  LEA        $000C(A6),A1                             | 43EE 000C
++0030  00125A  MOVE.L     (A1)+,(A0)+                              | 20D9
++0032  00125C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0034  00125E  MOVE.W     (A1)+,(A0)+                              | 30D9
++0036  001260  UNLK       A6                                       | 4E5E
++0038  001262  RTS                                                 | 4E75
++003A  001264  DC.B       'CEIL    '                               | 4345 494C 2020 2020
+FABS
++0000  00126C  LINK       A6,#$0000                                | 4E56 0000
++0004  001270  PEA        $000C(A6)                                | 486E 000C
++0008  001274  MOVE.W     #$000F,-(A7)                             | 3F3C 000F
++000C  001278  _FP68K                         ; A9EB               | A9EB
++000E  00127A  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0012  00127E  LEA        $000C(A6),A1                             | 43EE 000C
++0016  001282  MOVE.L     (A1)+,(A0)+                              | 20D9
++0018  001284  MOVE.L     (A1)+,(A0)+                              | 20D9
++001A  001286  MOVE.W     (A1)+,(A0)+                              | 30D9
++001C  001288  UNLK       A6                                       | 4E5E
++001E  00128A  RTS                                                 | 4E75
++0020  00128C  DC.B       'FABS    '                               | 4641 4253 2020 2020
+FLOOR
++0000  001294  LINK       A6,#$0000                                | 4E56 0000
++0004  001298  MOVE.W     #$4000,-$0002(A5)                        | 3B7C 4000 FFFE
++000A  00129E  PEA        -$0002(A5)                               | 486D FFFE
++000E  0012A2  MOVE.W     #$0001,-(A7)                             | 3F3C 0001
++0012  0012A6  _FP68K                         ; A9EB               | A9EB
++0014  0012A8  PEA        $000C(A6)                                | 486E 000C
++0018  0012AC  MOVE.W     #$0014,-(A7)                             | 3F3C 0014
++001C  0012B0  _FP68K                         ; A9EB               | A9EB
++001E  0012B2  PEA        -$0002(A5)                               | 486D FFFE
++0022  0012B6  MOVE.W     #$0017,-(A7)                             | 3F3C 0017
++0026  0012BA  _FP68K                         ; A9EB               | A9EB
++0028  0012BC  MOVEA.L    $0008(A6),A0                             | 206E 0008
++002C  0012C0  LEA        $000C(A6),A1                             | 43EE 000C
++0030  0012C4  MOVE.L     (A1)+,(A0)+                              | 20D9
++0032  0012C6  MOVE.L     (A1)+,(A0)+                              | 20D9
++0034  0012C8  MOVE.W     (A1)+,(A0)+                              | 30D9
++0036  0012CA  UNLK       A6                                       | 4E5E
++0038  0012CC  RTS                                                 | 4E75
++003A  0012CE  DC.B       'FLOOR   '                               | 464C 4F4F 5220 2020
+FMOD
++0000  0012D6  LINK       A6,#$FFF2                                | 4E56 FFF2
++0004  0012DA  LEA        -$000A(A6),A0                            | 41EE FFF6
++0008  0012DE  LEA        $000C(A6),A1                             | 43EE 000C
++000C  0012E2  MOVE.L     (A1)+,(A0)+                              | 20D9
++000E  0012E4  MOVE.L     (A1)+,(A0)+                              | 20D9
++0010  0012E6  MOVE.W     (A1)+,(A0)+                              | 30D9
++0012  0012E8  MOVE.W     #$0000,-$000C(A6)                        | 3D7C 0000 FFF4
++0018  0012EE  PEA        -$000C(A6)                               | 486E FFF4
++001C  0012F2  PEA        $0016(A6)                                | 486E 0016
++0020  0012F6  MOVE.W     #$2008,-(A7)                             | 3F3C 2008
++0024  0012FA  _FP68K                         ; A9EB               | A9EB
++0026  0012FC  BNE.S      FMOD+$0040          ; 00001316           | 6618
++0028  0012FE  MOVEQ      #$21,D0             ; '!'                | 7021
++002A  001300  MOVE.W     D0,-$35EA(A5)                            | 3B40 CA16
++002E  001304  MOVEA.L    $0008(A6),A0                             | 206E 0008
++0032  001308  LEA        -$005C(A5),A1                            | 43ED FFA4
++0036  00130C  MOVE.L     (A1)+,(A0)+                              | 20D9
++0038  00130E  MOVE.L     (A1)+,(A0)+                              | 20D9
++003A  001310  MOVE.W     (A1)+,(A0)+                              | 30D9
++003C  001312  BRA        FMOD+$00DC          ; 000013B2           | 6000 009E
++0040  001316  PEA        $0016(A6)                                | 486E 0016
++0044  00131A  MOVE.W     #$000F,-(A7)                             | 3F3C 000F
++0048  00131E  _FP68K                         ; A9EB               | A9EB
++004A  001320  PEA        $0016(A6)                                | 486E 0016
++004E  001324  PEA        -$000A(A6)                               | 486E FFF6
++0052  001328  MOVE.W     #$000C,-(A7)                             | 3F3C 000C
++0056  00132C  _FP68K                         ; A9EB               | A9EB
++0058  00132E  MOVE.W     #$0000,-$000C(A6)                        | 3D7C 0000 FFF4
++005E  001334  PEA        -$000C(A6)                               | 486E FFF4
++0062  001338  PEA        $000C(A6)                                | 486E 000C
++0066  00133C  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++006A  001340  _FP68K                         ; A9EB               | A9EB
++006C  001342  BLE.S      FMOD+$0094          ; 0000136A           | 6F26
++006E  001344  MOVE.W     #$0000,-$000E(A6)                        | 3D7C 0000 FFF2
++0074  00134A  PEA        -$000E(A6)                               | 486E FFF2
++0078  00134E  PEA        -$000A(A6)                               | 486E FFF6
++007C  001352  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++0080  001356  _FP68K                         ; A9EB               | A9EB
++0082  001358  BGE.S      FMOD+$0094          ; 0000136A           | 6C10
++0084  00135A  PEA        $0016(A6)                                | 486E 0016
++0088  00135E  PEA        -$000A(A6)                               | 486E FFF6
++008C  001362  MOVE.W     #$0000,-(A7)                             | 3F3C 0000
++0090  001366  _FP68K                         ; A9EB               | A9EB
++0092  001368  BRA.S      FMOD+$00CE          ; 000013A4           | 603A
++0094  00136A  MOVE.W     #$0000,-$000C(A6)                        | 3D7C 0000 FFF4
++009A  001370  PEA        -$000C(A6)                               | 486E FFF4
++009E  001374  PEA        $000C(A6)                                | 486E 000C
++00A2  001378  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++00A6  00137C  _FP68K                         ; A9EB               | A9EB
++00A8  00137E  BGE.S      FMOD+$00CE          ; 000013A4           | 6C24
++00AA  001380  MOVE.W     #$0000,-$000E(A6)                        | 3D7C 0000 FFF2
++00B0  001386  PEA        -$000E(A6)                               | 486E FFF2
++00B4  00138A  PEA        -$000A(A6)                               | 486E FFF6
++00B8  00138E  MOVE.W     #$200A,-(A7)                             | 3F3C 200A
++00BC  001392  _FP68K                         ; A9EB               | A9EB
++00BE  001394  BLE.S      FMOD+$00CE          ; 000013A4           | 6F0E
++00C0  001396  PEA        $0016(A6)                                | 486E 0016
++00C4  00139A  PEA        -$000A(A6)                               | 486E FFF6
++00C8  00139E  MOVE.W     #$0002,-(A7)                             | 3F3C 0002
++00CC  0013A2  _FP68K                         ; A9EB               | A9EB
++00CE  0013A4  MOVEA.L    $0008(A6),A0                             | 206E 0008
++00D2  0013A8  LEA        -$000A(A6),A1                            | 43EE FFF6
++00D6  0013AC  MOVE.L     (A1)+,(A0)+                              | 20D9
++00D8  0013AE  MOVE.L     (A1)+,(A0)+                              | 20D9
++00DA  0013B0  MOVE.W     (A1)+,(A0)+                              | 30D9
++00DC  0013B2  UNLK       A6                                       | 4E5E
++00DE  0013B4  RTS                                                 | 4E75
++00E0  0013B6  DC.B       'FMOD    '                               | 464D 4F44 2020 2020
+Anon22
++0000  0013BE  MOVEA.L    $0004(A7),A0                             | 206F 0004
++0004  0013C2  MOVEA.L    $0008(A7),A1                             | 226F 0008
++0008  0013C6  MOVE.L     A0,D0                                    | 2008
++000A  0013C8  MOVE.B     (A1)+,(A0)+                              | 10D9
++000C  0013CA  BNE.S      Anon22+$000A        ; 000013C8           | 66FC
++000E  0013CC  RTS                                                 | 4E75
+Anon23
++0000  0013CE  MOVEA.L    $0004(A7),A0                             | 206F 0004
++0004  0013D2  MOVEA.L    $0008(A7),A1                             | 226F 0008
++0008  0013D6  MOVE.L     A0,D0                                    | 2008
++000A  0013D8  TST.B      (A0)+                                    | 4A18
++000C  0013DA  BNE.S      Anon23+$000A        ; 000013D8           | 66FC
++000E  0013DC  SUBQ.L     #$1,A0                                   | 5388
++0010  0013DE  MOVE.B     (A1)+,(A0)+                              | 10D9
++0012  0013E0  BNE.S      Anon23+$0010        ; 000013DE           | 66FC
++0014  0013E2  RTS                                                 | 4E75
