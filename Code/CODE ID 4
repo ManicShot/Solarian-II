@@ -1,4 +1,4 @@
-Offset Addr	   Opcode	    Operand		          Commment		         Hex
+Offset Addr	 Opcode	  Operand		    Commment		      Hex
 _______________________________________________________________________________
 Seg loader info
 +0000  000000  DC.W       $8240               ; JT offset          | 8240
