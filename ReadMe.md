@@ -23,7 +23,7 @@ There a few different ways to emulate the Macintosh system. For this guide we're
 
 Head to one of the following links at the emaculation.com forums to download the latest version
 
-* Basilisk II for **Windows **
+* Basilisk II for **Windows**
 
   ⁃ download the latest version - https://www.emaculation.com/forum/viewtopic.php?t=5282
  
@@ -62,7 +62,7 @@ or [direct download](https://github.com/c5ca7ae6-29f3-4c44-b3a3-7538520c6964) - 
 
 Now that you have the ![multiplier 3x](https://github.com/user-attachments/assets/f573fa08-7430-4aaa-9107-43ff0e61ef5b) items downloaded, you can proceed
 
-![supply stork](https://github.com/user-attachments/assets/ef38e258-f209-4904-b161-89c3a06f470d)
+![supply stork](https://github.com/user-attachments/assets/fc6caf23-a31c-4ade-915f-b0d36500dfd2)
 
 ## INSTRUCTIONS TO INSTALL
 
