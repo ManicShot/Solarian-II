@@ -43,7 +43,7 @@ For this guide we're using a **Quadra ROM** from 1997. You can use other ROMs bu
 
 `Quadra.rom`
 
-https://github.com/Solarian-II/Solarian-II/blob/main/Quadra.rom
+https://github.com/ManicShot/Solarian-II/blob/main/Quadra.rom
 
 or [direct download](https://github.com/c864488b-9467-4c21-b471-019d4dbfbe9d) - (1 MB)
 
@@ -55,7 +55,7 @@ Head here to download a disk image of a **System 7.5.3** minimal install (it has
 
 `MacOS753_mini10.dsk`
 
-https://github.com/Solarian-II/Solarian-II/blob/main/MacOS753_mini10.dsk
+https://github.com/ManicShot/Solarian-II/blob/main/MacOS753_mini10.dsk
 
 or [direct download](https://github.com/c5ca7ae6-29f3-4c44-b3a3-7538520c6964) - (10.5 MB)
 
