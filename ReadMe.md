@@ -21,20 +21,9 @@ Links for each below, with further instructions to follow:
 
 There a few different ways to emulate the Macintosh system. For this guide we're recommending **Basilisk II**.
 
-Head to one of the following links at the emaculation.com forums to download the latest version
+Head to one of the following links at the emaculation.com forums to download the latest version:
 
-* Basilisk II for **Windows**
-
-  ⁃ download the latest version - https://www.emaculation.com/forum/viewtopic.php?t=5282
- 
-* Basilisk II for **OSX/macOS**
-
-  ⁃ download the latest version - https://www.emaculation.com/forum/viewtopic.php?f=6&t=7361
-    
-* Basilisk II for **Linux**
-
-  ⁃ download the latest version - https://www.emaculation.com/forum/viewtopic.php?t=6580
-
+[**Windows**](https://www.emaculation.com/forum/viewtopic.php?t=5282) | [**macOS**](https://www.emaculation.com/forum/viewtopic.php?t=7361) | [**Linux**](https://www.emaculation.com/forum/viewtopic.php?t=6580)
 
 
 ### 2. ROM file
@@ -161,9 +150,7 @@ This scaling uses NN sampling (nearest neighbour, or "neighbor" for all you free
 
 In case you run into any issues, here are Setup Guides for each system:
 
-  * Windows           https://www.emaculation.com/doku.php/basilisk_ii_setup
-  * OSX/macOS         https://www.emaculation.com/doku.php/basiliskii_osx_setup
-  * Linux             https://www.emaculation.com/doku.php/sheepshaver_basiliskii_linux
+[Windows](https://www.emaculation.com/doku.php/basilisk_ii_setup) | [macOS](https://www.emaculation.com/doku.php/basiliskii_osx_setup) | [Linux](https://www.emaculation.com/doku.php/sheepshaver_basiliskii_linux)
 
 
 Lastly if anyone has recommendations to streamline this process or improve this guide, please get in touch or submit an issue. Thanks!
